@@ -581,7 +581,7 @@ class LoadDialog(QDialog):
         font_label = QFont()
         font_label.setBold(True)
         font_label.setPixelSize(20)
-        ha_title = QLabel('Histology analyser')
+        ha_title = QLabel('QUAntitative Histological Analyser')
         ha_title.setFont(font_label)
         ha_title.setAlignment(Qt.AlignCenter)
 
