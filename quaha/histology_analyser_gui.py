@@ -32,9 +32,9 @@ except:
         logger.warning("Deprecated of pyseg_base as submodule")
         from seed_editor_qt import QTSeedEditor
 
-import misc
+from imtools import misc
 import histology_analyser as HA
-from histology_report import HistologyReport
+# from histology_report import HistologyReport
 from histology_report import HistologyReportDialog
 
 

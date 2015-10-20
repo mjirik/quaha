@@ -22,18 +22,18 @@ from PyQt4.QtGui import QApplication
 
 import numpy as np
 import scipy.ndimage
-import misc
+from imtools import misc
 from io3d import datareader
 import csv
 
 import skelet3d
-import segmentation
+from imtools import segmentation
 import sed3 as se
 
 import histology_analyser_gui as HA_GUI
 from histology_report import HistologyReport
-from skeleton_analyser import SkeletonAnalyser
-import surface_measurement
+from skelet3d.skeleton_analyser import SkeletonAnalyser
+from imtools import surface_measurement
 
 
 class HistologyAnalyser:

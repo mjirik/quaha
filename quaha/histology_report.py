@@ -13,7 +13,7 @@ import sys
 import argparse
 import numpy as np
 
-import misc
+from imtools import misc
 import csv
 
 import pandas as pd
