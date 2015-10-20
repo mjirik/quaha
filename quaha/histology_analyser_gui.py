@@ -73,7 +73,7 @@ class HistologyAnalyserWindow(QMainWindow):
         rstart +=2
 
         cw.setLayout(self.ui_gridLayout)
-        self.setWindowTitle('LISA - Histology Analyser')
+        self.setWindowTitle('QUAntitative Histological Analyser')
         self.show()
 
     def closeEvent(self, event):
