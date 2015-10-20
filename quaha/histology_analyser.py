@@ -500,7 +500,7 @@ def generate_sample_data(m=1, noise_level=0.005, gauss_sigma=0.1):
     |     (100*m)^3 numpy array
     |         voxel size = [1,1,1]
     """
-    import thresholding_functions
+    from imtools import thresholding_functions
 
     data3d = np.zeros((100 * m, 100 * m, 100 * m), dtype=np.int)
 
