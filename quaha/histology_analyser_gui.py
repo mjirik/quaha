@@ -392,6 +392,10 @@ class SegmResultDialog(QDialog):
         QDialog.__init__(self)
         self.initUI()
 
+    def __on_changed_aggregate(self, str_agg):
+        self.ha.aggregate_near_nodes_distance = float(str_agg)
+
+
     def initUI(self):
         self.ui_gridLayout = QGridLayout()
         self.ui_gridLayout.setSpacing(15)
@@ -407,6 +411,12 @@ class SegmResultDialog(QDialog):
         self.ui_gridLayout.addWidget(info_label, rstart + 0, 0, 1, 3)
         rstart += 1
 
+# TODO aggregate_nodes_distance text box
+        aggregate_textbox = QLineEdit()
+        aggregate_textbox.setText(str(self.ha.aggregate_near_nodes_distance))
+        aggregate_textbox.textChanged.connect(self.__on_changed_aggregate)
+
+        # buttons
         btn_preview = QPushButton("Show segmentation result", self)
         btn_preview.clicked.connect(self.showSegmentedData)
         btn_segm = QPushButton("Go back to segmentation", self)
@@ -414,9 +424,12 @@ class SegmResultDialog(QDialog):
         btn_stats = QPushButton("Compute Statistics", self)
         btn_stats.clicked.connect(self.mainWindow.showStatsRunDialog)
 
-        self.ui_gridLayout.addWidget(btn_preview, rstart + 0, 1)
-        self.ui_gridLayout.addWidget(btn_segm, rstart + 1, 1)
-        self.ui_gridLayout.addWidget(btn_stats, rstart + 2, 1)
+        self.ui_gridLayout.addWidget(QLabel('Node aggregation distance'), rstart + 0, 1)
+        self.ui_gridLayout.addWidget(aggregate_textbox, rstart + 1, 1)
+        self.ui_gridLayout.addWidget(QLabel(''), rstart + 2, 1)
+        self.ui_gridLayout.addWidget(btn_preview, rstart + 3, 1)
+        self.ui_gridLayout.addWidget(btn_segm, rstart + 4, 1)
+        self.ui_gridLayout.addWidget(btn_stats, rstart + 5, 1)
         rstart += 3
 
         ### Stretcher
@@ -524,7 +537,7 @@ class StatsRunDialog(QDialog):
 class LoadDialog(QDialog):
     signal_finished = pyqtSignal(str,np.ndarray,dict,bool)
 
-    def __init__(self, mainWindow=None, inputfile=None, voxelsize=None, crop=None):
+    def __init__(self, mainWindow=None, inputfile=None, voxelsize=None, crop=None, aggregate_near_nodes_distance=0):
         self.mainWindow = mainWindow
 
         self.inputfile = inputfile
