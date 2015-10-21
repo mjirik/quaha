@@ -349,7 +349,7 @@ class HistologyAnalyser:
             self.data3d_skel,
             volume_data=self.data3d_thr,
             voxelsize_mm=self.metadata['voxelsize_mm'],
-            aggregate_near_nodes_distance = self.aggregate_near_nodes_distance
+            aggregate_near_nodes_distance = self.aggregate_near_nodes_distance,
             )
         data3d_nodes_vis = skan.sklabel.copy()
         del(skan)
@@ -364,7 +364,9 @@ class HistologyAnalyser:
             pyed = se.sed3(
                 self.data3d,
                 seeds=(data3d_nodes_vis).astype(np.int8),
-                contour=self.data3d_thr.astype(np.int8)
+                contour=self.data3d_thr.astype(np.int8),
+                voxelsize=self.metadata['voxelsize_mm'],
+                show_axis=True
             )
             pyed.show()
 
