@@ -73,7 +73,8 @@ class HistologyAnalyserWindow(QMainWindow):
         rstart +=2
 
         cw.setLayout(self.ui_gridLayout)
-        self.setWindowTitle('QUAntitative Histological Analyser')
+        #self.setWindowTitle('QUAntitative Histological Analyser')
+        self.setWindowTitle('QuantA')
         self.show()
 
     def closeEvent(self, event):
@@ -581,7 +582,7 @@ class LoadDialog(QDialog):
         font_label = QFont()
         font_label.setBold(True)
         font_label.setPixelSize(20)
-        ha_title = QLabel('Histology analyser')
+        ha_title = QLabel('QuantA')
         ha_title.setFont(font_label)
         ha_title.setAlignment(Qt.AlignCenter)
 
