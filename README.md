@@ -1,2 +1,3 @@
-# quaha
-QUAntitative Histological Analyser
+# Quanta 
+Quantitative Histological Analyser
+
