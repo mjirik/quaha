@@ -42,7 +42,7 @@ install:
     - pip install -r requirements.txt
 
     # get sample data
-    - python imtools.sample_data -o sample_data
+    - python -m imtools.sample_data -o sample_data
 
 
 # command to run tests
