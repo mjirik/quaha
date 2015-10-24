@@ -38,7 +38,7 @@ install:
     - cd ..
     - cd ..
 
-    - pip install -r coveralls
+    - pip install coveralls
     - pip install -r requirements.txt
 
     # get sample data
