@@ -430,90 +430,97 @@ class HistologyAnalyser:
             info_labels = ['shape_px', 'surface_density', 'used_volume_mm3', 'used_volume_px', 'vessel_volume_fraction', 'volume_mm3', 'volume_px', 'voxel_size_mm', 'voxel_volume_mm3']
             entry_labels = ['connectedEdgesA', 'connectedEdgesB', 'id', 'lengthEstimation', 'lengthEstimationPixel', 'lengthEstimationPoly', 'lengthEstimationSpline', 'nodeA_ZYX', 'nodeA_ZYX_mm', 'nodeB_ZYX', 'nodeB_ZYX_mm', 'nodeIdA', 'nodeIdB', 'nodesDistance', 'radius_mm', 'tortuosity', 'vectorA', 'vectorB']
 
-            try:
-                writer.writerow(info_labels)
-                writer.writerow(entry_labels)
-            except Exception, e:
-                logger.error('Error when saving line (csv info) to csv: '+str(e))
+            # try:
+            #     writer.writerow(info_labels)
+            #     writer.writerow(entry_labels)
+            # except Exception, e:
+            #     logger.error('Error when saving line (csv info) to csv: '+str(e))
+            #
+            # # save info
+            # try:
+            #     writer.writerow(['__info__'])
+            #     writer.writerow(info['shape_px'])
+            #     writer.writerow([info['surface_density']])
+            #     writer.writerow([info['used_volume_mm3']])
+            #     writer.writerow([info['used_volume_px']])
+            #     writer.writerow([info['vessel_volume_fraction']])
+            #     writer.writerow([info['volume_mm3']])
+            #     writer.writerow([info['volume_px']])
+            #     writer.writerow(info['voxel_size_mm'])
+            #     writer.writerow([info['voxel_volume_mm3']])
+            # except Exception, e:
+            #     logger.error('Error when saving line (info) to csv: '+str(e))
+            #     logger.error(traceback.format_exc())
 
-            # save info
             try:
-                writer.writerow(['__info__'])
-                writer.writerow(info['shape_px'])
-                writer.writerow([info['surface_density']])
-                writer.writerow([info['used_volume_mm3']])
-                writer.writerow([info['used_volume_px']])
-                writer.writerow([info['vessel_volume_fraction']])
-                writer.writerow([info['volume_mm3']])
-                writer.writerow([info['volume_px']])
-                writer.writerow(info['voxel_size_mm'])
-                writer.writerow([info['voxel_volume_mm3']])
+                _new_write_data({0: info}, writer, labels=info_labels)
             except Exception, e:
                 logger.error('Error when saving line (info) to csv: '+str(e))
                 logger.error(traceback.format_exc())
 
-            _new_write_data(data, writer)
+            labels = ['id', 'connectedEdgesA', 'connectedEdgesB', 'lengthEstimation',
+                      'lengthEstimationPixel', 'lengthEstimationPoly', 'lengthEstimationSpline',
+                      'nodeA_ZYX', 'nodeA_ZYX_mm', 'nodeB_ZYX', 'nodeB_ZYX_mm', 'nodeIdA', 'nodeIdB',
+                      'nodesDistance', 'radius_mm', 'tortuosity', 'vectorA', 'vectorB']
+            _new_write_data(data, writer, labels)
             # save data
-            for lineid in data:
-                dataline = data[lineid]
-                try:
-                    writer.writerow(['__entry__'])
-                    writer.writerow(dataline['connectedEdgesA'])
-                    writer.writerow(dataline['connectedEdgesB'])
-                    #writer.writerow(dataline['curve_params']['start'])
-                    #writer.writerow(dataline['curve_params']['vector'])
-                    writer.writerow([dataline['id']])
-                    writer.writerow([dataline['lengthEstimation']])
-                    writer.writerow([dataline['lengthEstimationPixel']])
-                    writer.writerow([dataline['lengthEstimationPoly']])
-                    writer.writerow([dataline['lengthEstimationSpline']])
-                    writer.writerow(dataline['nodeA_ZYX'])
-                    writer.writerow(dataline['nodeA_ZYX_mm'])
-                    writer.writerow(dataline['nodeB_ZYX'])
-                    writer.writerow(dataline['nodeB_ZYX_mm'])
-                    writer.writerow([dataline['nodeIdA']])
-                    writer.writerow([dataline['nodeIdB']])
-                    writer.writerow([dataline['nodesDistance']])
-                    writer.writerow([dataline['radius_mm']])
-                    writer.writerow([dataline['tortuosity']])
-                    writer.writerow(dataline['vectorA'])
-                    writer.writerow(dataline['vectorB'])
-
-                except Exception, e:
-                    logger.error('Error when saving line '+str(lineid)+' (data) to csv: '+str(e))
-                    logger.error(traceback.format_exc())
 
 
     def writeSkeletonToPickle(self, filename='skel.pkl'):
         misc.obj_to_file(self.sklabel, filename=filename, filetype='pickle')
 
-def _new_write_data(data, writer):
-    labels = ['__entry__', 'id', 'connectedEdgesA', 'connectedEdgesB', 'lengthEstimation',
-              'lengthEstimationPixel', 'lengthEstimationPoly', 'lengthEstimationSpline',
-              'nodeA_ZYX', 'nodeA_ZYX_mm', 'nodeB_ZYX', 'nodeB_ZYX_mm', 'nodeIdA', 'nodeIdB',
-              'nodesDistance', 'radius_mm', 'tortuosity', 'vectorA', 'vectorB']
+def _new_write_data(data, writer, labels):
 
     # firstline
     writer.writerow(labels)
 
-    row = []
+    for lineid in data:
+        dataline = data[lineid]
+        row = []
+        # try:
+        #     row.append(dataline['__entry__'])
+        # except:
+        #     traceback.print_exc()
+        #     row.append(None)
+        for label in labels:
+            try:
+                row.append(dataline[label])
+            except Exception, e:
+                traceback.print_exc()
+                logger.error('Error when saving line '+str(lineid)+' (data) to csv: '+str(e))
+                row.append(None)
+        writer.writerow(row)
 
-
+def _old_write_data(data, writer):
 
     for lineid in data:
         dataline = data[lineid]
         try:
-            row.append(dataline['__entry__'])
-        except:
-            traceback.print_exc()
-            row.append(None)
-        for label in labels:
-            try:
-                row.append(dataline[label])
-            except:
-                traceback.print_exc()
-                row.append(None)
-        writer.writerow(row)
+            writer.writerow(['__entry__'])
+            writer.writerow(dataline['connectedEdgesA'])
+            writer.writerow(dataline['connectedEdgesB'])
+            #writer.writerow(dataline['curve_params']['start'])
+            #writer.writerow(dataline['curve_params']['vector'])
+            writer.writerow([dataline['id']])
+            writer.writerow([dataline['lengthEstimation']])
+            writer.writerow([dataline['lengthEstimationPixel']])
+            writer.writerow([dataline['lengthEstimationPoly']])
+            writer.writerow([dataline['lengthEstimationSpline']])
+            writer.writerow(dataline['nodeA_ZYX'])
+            writer.writerow(dataline['nodeA_ZYX_mm'])
+            writer.writerow(dataline['nodeB_ZYX'])
+            writer.writerow(dataline['nodeB_ZYX_mm'])
+            writer.writerow([dataline['nodeIdA']])
+            writer.writerow([dataline['nodeIdB']])
+            writer.writerow([dataline['nodesDistance']])
+            writer.writerow([dataline['radius_mm']])
+            writer.writerow([dataline['tortuosity']])
+            writer.writerow(dataline['vectorA'])
+            writer.writerow(dataline['vectorB'])
+
+        except Exception, e:
+            logger.error('Error when saving line '+str(lineid)+' (data) to csv: '+str(e))
+            logger.error(traceback.format_exc())
 
 
 def generate_sample_data(m=1, noise_level=0.005, gauss_sigma=0.1):
