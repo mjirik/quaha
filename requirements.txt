@@ -5,4 +5,4 @@ skelet3d
 # copy of conda
 numpy
 scipy
-PyQt
+pyqt
