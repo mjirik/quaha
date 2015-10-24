@@ -452,6 +452,7 @@ class HistologyAnalyser:
                 logger.error('Error when saving line (info) to csv: '+str(e))
                 logger.error(traceback.format_exc())
 
+            _new_write_data(data, writer)
             # save data
             for lineid in data:
                 dataline = data[lineid]
@@ -485,6 +486,34 @@ class HistologyAnalyser:
 
     def writeSkeletonToPickle(self, filename='skel.pkl'):
         misc.obj_to_file(self.sklabel, filename=filename, filetype='pickle')
+
+def _new_write_data(data, writer):
+    labels = ['__entry__', 'id', 'connectedEdgesA', 'connectedEdgesB', 'lengthEstimation',
+              'lengthEstimationPixel', 'lengthEstimationPoly', 'lengthEstimationSpline',
+              'nodeA_ZYX', 'nodeA_ZYX_mm', 'nodeB_ZYX', 'nodeB_ZYX_mm', 'nodeIdA', 'nodeIdB',
+              'nodesDistance', 'radius_mm', 'tortuosity', 'vectorA', 'vectorB']
+
+    # firstline
+    writer.writerow(labels)
+
+    row = []
+
+
+
+    for lineid in data:
+        dataline = data[lineid]
+        try:
+            row.append(dataline['__entry__'])
+        except:
+            traceback.print_exc()
+            row.append(None)
+        for label in labels:
+            try:
+                row.append(dataline[label])
+            except:
+                traceback.print_exc()
+                row.append(None)
+        writer.writerow(row)
 
 
 def generate_sample_data(m=1, noise_level=0.005, gauss_sigma=0.1):
@@ -706,7 +735,8 @@ def processData(args):
     # Saving files
     logger.info("# ## ## write stats to file")
     ha.writeStatsToCSV()
-    ha.writeStatsToYAML(vtfile)
+    if vtfile is not None:
+        ha.writeStatsToYAML(vtfile)
     if vt2esofspy is not None:
         ha.exportVT2esofspy(vt2esofspy)
 
