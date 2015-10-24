@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 import sys
 import os.path
 path_to_script = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(path_to_script, "../extern/dicom2fem/src"))
+# sys.path.append(os.path.join(path_to_script, "../extern/dicom2fem/src"))
 
 from PyQt4 import QtCore
 from PyQt4.QtCore import pyqtSignal, QObject, QRunnable, QThreadPool, Qt
