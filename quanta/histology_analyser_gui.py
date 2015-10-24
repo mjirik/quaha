@@ -12,6 +12,7 @@ import sys
 import os.path
 path_to_script = os.path.dirname(os.path.abspath(__file__))
 # sys.path.append(os.path.join(path_to_script, "../extern/dicom2fem/src"))
+import traceback
 
 from PyQt4 import QtCore
 from PyQt4.QtCore import pyqtSignal, QObject, QRunnable, QThreadPool, Qt
@@ -25,10 +26,12 @@ from io3d import datareader
 try:
     from pysegbase.seed_editor_qt import QTSeedEditor
 except:
+    traceback.print_exc()
     logger.warning("Deprecated of pyseg_base as submodule")
     try:
         from pysegbase.seed_editor_qt import QTSeedEditor
     except:
+        traceback.print_exc()
         logger.warning("Deprecated of pyseg_base as submodule")
         from seed_editor_qt import QTSeedEditor
 
