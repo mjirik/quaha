@@ -71,6 +71,7 @@ class HistologyTest(unittest.TestCase):
         hr.generateStats()
         stats_new = hr.stats['Report']
 
+        csv_new = os.path.join(path_to_script, "vt_new.csv")
         ha.writeStatsToCSV(filename=yaml_new)
         # compare
         self.assertGreater(stats_orig['Other']['Total length mm'],stats_new['Other']['Total length mm']*0.9)  # noqa

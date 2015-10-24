@@ -1,5 +1,8 @@
-numpy
-scipy
 sed3
 imtools
 skelet3d
+
+# copy of conda
+numpy
+scipy
+pyqt
