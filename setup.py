@@ -3,6 +3,7 @@
 from setuptools import setup, find_packages
 # Always prefer setuptools over distutils
 from os import path
+__VERSION__ = '0.0.1'
 
 here = path.abspath(path.dirname(__file__))
 setup(
@@ -11,7 +12,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # http://packaging.python.org/en/latest/tutorial.html#version
-    version='0.0.1',
+    version=__VERSION__,
     url='https://github.com/mjirik/quanta',
     author='Miroslav Jirik and Pavel Volkovinsky',
     author_email='miroslav.jirik@gmail.com',
