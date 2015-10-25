@@ -8,3 +8,4 @@ pysegbase
 numpy
 scipy
 # pyqt
+pandas
