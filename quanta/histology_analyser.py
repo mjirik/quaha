@@ -430,28 +430,6 @@ class HistologyAnalyser:
             info_labels = ['shape_px', 'surface_density', 'used_volume_mm3', 'used_volume_px', 'vessel_volume_fraction', 'volume_mm3', 'volume_px', 'voxel_size_mm', 'voxel_volume_mm3']
             entry_labels = ['connectedEdgesA', 'connectedEdgesB', 'id', 'lengthEstimation', 'lengthEstimationPixel', 'lengthEstimationPoly', 'lengthEstimationSpline', 'nodeA_ZYX', 'nodeA_ZYX_mm', 'nodeB_ZYX', 'nodeB_ZYX_mm', 'nodeIdA', 'nodeIdB', 'nodesDistance', 'radius_mm', 'tortuosity', 'vectorA', 'vectorB']
 
-            # try:
-            #     writer.writerow(info_labels)
-            #     writer.writerow(entry_labels)
-            # except Exception, e:
-            #     logger.error('Error when saving line (csv info) to csv: '+str(e))
-            #
-            # # save info
-            # try:
-            #     writer.writerow(['__info__'])
-            #     writer.writerow(info['shape_px'])
-            #     writer.writerow([info['surface_density']])
-            #     writer.writerow([info['used_volume_mm3']])
-            #     writer.writerow([info['used_volume_px']])
-            #     writer.writerow([info['vessel_volume_fraction']])
-            #     writer.writerow([info['volume_mm3']])
-            #     writer.writerow([info['volume_px']])
-            #     writer.writerow(info['voxel_size_mm'])
-            #     writer.writerow([info['voxel_volume_mm3']])
-            # except Exception, e:
-            #     logger.error('Error when saving line (info) to csv: '+str(e))
-            #     logger.error(traceback.format_exc())
-
             try:
                 _new_write_data({0: info}, writer, labels=info_labels)
             except Exception, e:
@@ -461,7 +439,8 @@ class HistologyAnalyser:
             labels = ['id', 'connectedEdgesA', 'connectedEdgesB', 'lengthEstimation',
                       'lengthEstimationPixel', 'lengthEstimationPoly', 'lengthEstimationSpline',
                       'nodeA_ZYX', 'nodeA_ZYX_mm', 'nodeB_ZYX', 'nodeB_ZYX_mm', 'nodeIdA', 'nodeIdB',
-                      'nodesDistance', 'radius_mm', 'tortuosity', 'vectorA', 'vectorB']
+                      'nodesDistance', 'radius_mm', 'tortuosity', 'vectorA', 'vectorB',
+                      "phiAa", "phiAb", "phiAc", "phiBa", "phiBb", "phiBc"]
             _new_write_data(data, writer, labels)
             # save data
 
