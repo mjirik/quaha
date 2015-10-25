@@ -8,6 +8,7 @@ python:
 virtualenv:
     system_site_packages: true
 before_install:
+    - sudo apt-get-repository ppa:yjwong/cmake
     - sudo apt-get update -qq
     - sudo apt-get install -qq git g++ sox make curl cmake
     # - sudo apt-get install -qq python python-dev
