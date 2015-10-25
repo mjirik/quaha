@@ -12,9 +12,6 @@ before_install:
     - sudo apt-get install -qq git g++ sox make curl cmake
     # - sudo apt-get install -qq python python-dev
     - sudo apt-get install -qq libinsighttoolkit3-dev libpng12-dev libgdcm2-dev libvtk5-dev
-    - cmake --version
-    - conda install cmake
-    - cmake --version
     - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
     - chmod +x miniconda.sh
     - ./miniconda.sh -b
@@ -26,6 +23,9 @@ before_install:
     - sh -e /etc/init.d/xvfb start
 # command to install dependencies
 install:
+    - cmake --version
+    - conda install cmake
+    - cmake --version
     - conda update --yes conda
     # Install dependencies
     - conda install --yes -c SimpleITK -c luispedro -c mjirik --file requirements_conda.txt
