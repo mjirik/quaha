@@ -8,4 +8,5 @@ pysegbase
 numpy
 scipy
 # pyqt
+# vtk
 pandas
