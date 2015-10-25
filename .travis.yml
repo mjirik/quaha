@@ -29,8 +29,6 @@ before_install:
 # command to install dependencies
 install:
     - cmake --version
-    - conda install --yes cmake
-    - cmake --version
     - conda update --yes conda
     # Install dependencies
     - conda install --yes -c SimpleITK -c luispedro -c mjirik --file requirements_conda.txt
