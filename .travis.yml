@@ -12,7 +12,7 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -qq git g++ sox make curl
     - sudo apt-get install -qq libinsighttoolkit3-dev libpng12-dev libgdcm2-dev libvtk5-dev
-    - sudo add-apt-repository ppa:smspillaz/cmake-2.8.12 -y
+    - sudo add-apt-repository ppa:kubuntu-ppa/backports -y
 #    ppa:smspillaz/cmake-2.8.12
     - sudo apt-get update -q
     - sudo apt-get install -qq cmake
