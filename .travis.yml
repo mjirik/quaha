@@ -39,8 +39,10 @@ install:
     - cmake ..
     - make
     - make install
+    # this install thinningCxxShared to /usr/local/lib/libBinaryThinningCxxShared.dylib
+    - sudo make install
     # library is installed but not for anaconda
-    - python setup.py install
+#    - python setup.py install
     - cd ..
     - cd ..
 
