@@ -47,6 +47,9 @@ install:
     - sudo make install
     # library is installed but not for anaconda
 #    - python setup.py install
+    - 'echo "include /usr/local/lib" | sudo tee -a /etc/ld.so.conf'
+    - 'sudo ldconfig -v'
+#
     - cd ..
     - cd ..
 
