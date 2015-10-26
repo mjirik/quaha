@@ -38,7 +38,7 @@ install:
     - cd skelet3d/build
     - cmake ..
     - make
-    - make install
+    - make install -DNO_SHARED_INSTALL
     # this install thinningCxxShared to /usr/local/lib/libBinaryThinningCxxShared.dylib
     - sudo make install
     # library is installed but not for anaconda
