@@ -36,11 +36,12 @@ install:
     - git clone https://github.com/mjirik/skelet3d.git
     - mkdir skelet3d/build
     - cd skelet3d/build
-    - cmake ..
+    - cmake .. -DNO_SHARED_INSTALL
     - make
     # nosudo install for skelet3d into anaconda
-    - make install -DNO_SHARED_INSTALL
+    - make install
     # this install thinningCxxShared to /usr/local/lib/libBinaryThinningCxxShared.dylib
+    - cmake ..
     - sudo make install
     # library is installed but not for anaconda
 #    - python setup.py install
