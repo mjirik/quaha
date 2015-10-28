@@ -3,9 +3,9 @@ Quantitative Histological Analyser
 
 # Install
 
-## Linux (Ubuntu 14.040
+## Linux (Ubuntu 14.04)
 
-* Install prerequisites on Ubuntu 14.04
+* Install prerequisites
 
         sudo apt-get install cmake libinsighttoolkit3-dev libpng12-dev libgdcm2-dev git wget
         wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
