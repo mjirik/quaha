@@ -36,7 +36,7 @@ Quantitative Histological Analyser
 
         mkdir itk-build
         cd itk-build
-        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS ..\InsightToolkit-4.7.1
+        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON ..\InsightToolkit-4.7.1
         C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ALL_BUILD.vcxproj
         
 * Install required python packages
