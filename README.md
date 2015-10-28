@@ -29,10 +29,10 @@ Quantitative Histological Analyser
     
 ## Windows 
  
-* Install [cmake](https://cmake.org/)
-* Download and install Visual Studio Express (https://www.visualstudio.com/products/visual-studio-community-vs#)
-* Install [Anaconda](https://www.continuum.io/downloads) 
-* Download and install [InsightToolkit](http://www.itk.org/) - [video GUI tutorial](https://www.youtube.com/watch?v=f79joU6FTFQ) or with command line:
+* Install [cmake](https://cmake.org/download/)
+* Download and install [Visual Studio Express](https://www.visualstudio.com/products/visual-studio-community-vs#) with C++ support (select in installation process)
+* Install [Anaconda for python 2.7](https://www.continuum.io/downloads) 
+* Download and install [InsightToolkit](http://www.itk.org/ITK/resources/software.html) - [video GUI tutorial](https://www.youtube.com/watch?v=f79joU6FTFQ) or with command line:
 
         mkdir itk-build
         cd itk-build
