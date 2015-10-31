@@ -12,7 +12,7 @@ import numpy as np
 import logging
 logger = logging.getLogger(__name__)
 
-from quanta.histology_analyser import HistologyAnalyser
+from quanta.quanta import HistologyAnalyser
 from quanta.histology_report import HistologyReport
 from imtools.gen_volume_tree import TreeGenerator
 
@@ -93,8 +93,8 @@ class HistologyTest(unittest.TestCase):
         Test has no strong part
         """
 
-        import quanta.histology_analyser
-        quanta.histology_analyser.generate_sample_data()
+        import quanta.quanta
+        quanta.quanta.generate_sample_data()
 
 
 if __name__ == "__main__":

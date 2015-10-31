@@ -36,7 +36,7 @@ except:
         from seed_editor_qt import QTSeedEditor
 
 from imtools import misc
-import histology_analyser as HA
+import quanta as HA
 # from histology_report import HistologyReport
 from histology_report import HistologyReportDialog
 
