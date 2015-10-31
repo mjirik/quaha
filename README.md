@@ -1,5 +1,5 @@
 # Quanta 
-Quantitative Histological Analyser
+Quantitative Analyser
 
 # Install
 
@@ -61,7 +61,7 @@ Quantitative Histological Analyser
 
 Run QuantA with:
 
-        python quanta/histology_analyser.py
+        python quanta/quanta.py
 
 ![img](http://147.228.240.61/queetech/www/quanta01.png)
 

@@ -387,7 +387,7 @@ class HistologyAnalyser:
                 gr[i]['lengthEstimationPoly'] = None
                 
             try:
-                gr[i]['lengthEstimationSpline'] = float(gr[i]['lengthEstimationSpline'])
+                gr[i]['lengthEstimationSpline'] = float(gr[i]['= lengthEstimationSpline'])
             except:
                 logger.warning('lengthEstimationSpline not a number')
                 gr[i]['lengthEstimationSpline'] = None
