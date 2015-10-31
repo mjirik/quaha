@@ -22,7 +22,7 @@
       <h1>
 <a id="quanta" class="anchor" href="#quanta" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quanta</h1>
 
-<p>Quantitative Histological Analyser</p>
+<p>Quantitative Analyser</p>
 
 <h1>
 <a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h1>
@@ -70,7 +70,7 @@ sudo make install
 
 <pre><code>mkdir itk-build
 cd itk-build
-cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS ..\InsightToolkit-4.7.1
+cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON ..\InsightToolkit-4.7.1
 C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ALL_BUILD.vcxproj
 </code></pre>
 </li>
@@ -100,7 +100,7 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ALL_BUILD.vcxproj
 
 <p>Run QuantA with:</p>
 
-<pre><code>    python quanta/histology_analyser.py
+<pre><code>    python quanta/quanta.py
 </code></pre>
 
 <p><img src="http://147.228.240.61/queetech/www/quanta01.png" alt="img"></p>
