@@ -10,12 +10,11 @@ Quantitative Analyser
         sudo apt-get install cmake libinsighttoolkit3-dev libpng12-dev libgdcm2-dev git wget
         wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
         source Miniconda-latest-Linux-x86_64.sh
-        conda install numpy scipy pip
+        conda install numpy scipy pip 
+        pip install imtools io3d sed3
         
 
-* Install skelet3d package 
-** download the [skelet3d package](https://github.com/mjirik/skelet3d)
-** build
+* Install [skelet3d package](https://github.com/mjirik/skelet3d)
 
         git clone https://github.com/mjirik/skelet3d.git
         cd skelet3d
@@ -29,30 +28,13 @@ Quantitative Analyser
     
 ## Windows 
  
-* Install [cmake](https://cmake.org/download/)
-* Download and install [Visual Studio Express](https://www.visualstudio.com/products/visual-studio-community-vs#) with C++ support (select in installation process)
 * Install [Anaconda for python 2.7](https://www.continuum.io/downloads) 
-* Download and install [InsightToolkit](http://www.itk.org/ITK/resources/software.html) - [video GUI tutorial](https://www.youtube.com/watch?v=f79joU6FTFQ) or with command line:
-
-        mkdir itk-build
-        cd itk-build
-        cmake -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON ..\InsightToolkit-4.7.1
-        C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ALL_BUILD.vcxproj
-        
 * Install required python packages
 
-        conda install numpy scipy pandas
-        pip install sed3 pysegbase imtools
+        conda install --file requirements_conda.txt 
+        pip install -r requirements_pip.txt
 
-* Install skelet3d package 
-** download the [skelet3d package](https://github.com/mjirik/skelet3d)
-** build
-
-        cd skelet3d
-        mkdir build
-        cd build 
-        cmake ..
-        C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe ALL_BUILD.vcxproj
+* Install [skelet3d package](https://github.com/mjirik/skelet3d)
         
 
         
