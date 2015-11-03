@@ -38,13 +38,13 @@ install:
     - cd skelet3d/build
     - cmake ..
     # - cmake .. -DNO_SHARED_INSTALL
-    - make
+    - cmake --build .
+    # this install thinningCxxShared to /usr/local/lib/libBinaryThinningCxxShared.dylib
+    - sudo make install
     # nosudo install for skelet3d into anaconda
     - pip install .
     # - make install
-    # this install thinningCxxShared to /usr/local/lib/libBinaryThinningCxxShared.dylib
     # - cmake ..
-    - sudo make install
     # library is installed but not for anaconda
 #    - python setup.py install
     - 'echo "include /usr/local/lib" | sudo tee -a /etc/ld.so.conf'
