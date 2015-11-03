@@ -3,7 +3,7 @@
 # platform: win-64
 numpy
 scipy
-pyqt=4.10
 SimpleITK
 pandas
 vtk
+pyqt=4.10.4=py27_0
