@@ -12,7 +12,7 @@ import numpy as np
 import logging
 logger = logging.getLogger(__name__)
 
-from quantan.quanta import HistologyAnalyser
+from quantan.quantan import HistologyAnalyser
 from quantan.histology_report import HistologyReport
 from imtools.gen_volume_tree import TreeGenerator
 
