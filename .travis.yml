@@ -30,7 +30,7 @@ before_install:
 install:
     - cmake --version
     - conda update --yes conda
-    - conda install pip nose coveralls
+    - conda install pip nose coverage
     # Install dependencies
     - conda install --yes -c SimpleITK -c luispedro -c mjirik --file requirements_conda.txt
     - pip install -r requirements_pip.txt
