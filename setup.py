@@ -8,7 +8,7 @@ __VERSION__ = '0.0.2'
 
 here = path.abspath(path.dirname(__file__))
 setup(
-    name='quanta',
+    name='quantan',
     description='Quantitative histological analyser',
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
