@@ -1,6 +1,6 @@
 numpy
 scipy
-pyqt=4.10
+pyqt==4.10
 SimpleITK
 pandas
 vtk
