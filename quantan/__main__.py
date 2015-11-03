@@ -1,2 +1,2 @@
-import quanta
-quanta.main()
+import quantan
+quantan.main()
