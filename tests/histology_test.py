@@ -93,8 +93,8 @@ class HistologyTest(unittest.TestCase):
         Test has no strong part
         """
 
-        import quanta.quanta
-        quanta.quanta.generate_sample_data()
+        import quantan.quantan
+        quantan.quantan.generate_sample_data()
 
 
 if __name__ == "__main__":
