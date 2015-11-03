@@ -1,4 +1,4 @@
-# Quanta 
+# QuantAn
 Quantitative Analyser
 
 # Install
@@ -13,7 +13,6 @@ Quantitative Analyser
         conda install numpy scipy pip 
         pip install imtools io3d sed3
         
-
 * Install [skelet3d package](https://github.com/mjirik/skelet3d)
 
         git clone https://github.com/mjirik/skelet3d.git
@@ -22,8 +21,12 @@ Quantitative Analyser
         cd build 
         cmake ..
         make 
-        pip install .
         sudo make install
+        pip install .
+
+* Install Quantan
+
+        pip install quantan
 
     
 ## Windows 
@@ -35,15 +38,18 @@ Quantitative Analyser
         pip install -r requirements_pip.txt
 
 * Install [skelet3d package](https://github.com/mjirik/skelet3d)
+* Install Quantan
+
+        pip install quantan
         
 
         
 
 # Run 
 
-Run QuantA with:
+Run QuantAn with:
 
-        python quanta/quanta.py
+        python -m quantan
 
 ![img](http://147.228.240.61/queetech/www/quanta01.png)
 
