@@ -30,8 +30,10 @@ before_install:
 install:
     - cmake --version
     - conda update --yes conda
+    - conda install pip nose coveralls
     # Install dependencies
     - conda install --yes -c SimpleITK -c luispedro -c mjirik --file requirements_conda.txt
+    - pip install -r requirements_pip.txt
 
     - git clone https://github.com/mjirik/skelet3d.git
     - mkdir skelet3d/build
@@ -41,10 +43,8 @@ install:
     - cmake --build .
     # this install thinningCxxShared to /usr/local/lib/libBinaryThinningCxxShared.dylib
     - sudo make install
-    # nosudo install for skelet3d into anaconda
-    - pip install .
-    # - make install
-    # - cmake ..
+    # nosudo install for skelet3d into anaconda, for now we are using pypi version of skelet3d
+    # - pip install .
     # library is installed but not for anaconda
 #    - python setup.py install
     - 'echo "include /usr/local/lib" | sudo tee -a /etc/ld.so.conf'
@@ -52,9 +52,6 @@ install:
 #
     - cd ..
     - cd ..
-
-    - pip install coveralls
-    - pip install -r requirements.txt
 
     # get sample data
     - python -m imtools.sample_data biodur_sample -o sample_data
