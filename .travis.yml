@@ -22,7 +22,7 @@ before_install:
     - ./miniconda.sh -b
     - pwd
     - ls
-    - export PATH="$HOME/miniconda/bin:$PATH"
+    - export PATH=/home/travis/miniconda2/bin:$PATH
     - conda config --set always_yes yes
     #  Update conda else if will result in a problem when conda updates the repos...
     - conda update --yes conda
