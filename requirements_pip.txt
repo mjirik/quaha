@@ -1,8 +1,8 @@
-sed3
-io3d
-imtools
-skelet3d
-pysegbase
+# sed3
+# imtools
+# io3d
+# skelet3d
+# pysegbase
 
 # copy of conda
 # numpy

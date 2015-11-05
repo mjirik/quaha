@@ -56,7 +56,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
-    install_requires=['numpy', 'scipy', "pyyaml", 'matplotlib', 'skelet3d', 'imtools', 'sed3'],
+    install_requires=['numpy', 'scipy', "pyyaml", 'matplotlib', 'skelet3d', 'imtools', 'sed3', "pysegbase", "io3d"],
     # 'SimpleITK'],  # Removed becaouse of errors when pip is installing
     dependency_links=[],
 
