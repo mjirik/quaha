@@ -32,15 +32,8 @@ Quantitative Analyser
 ## Windows 
  
 * Install [Anaconda for python 2.7](https://www.continuum.io/downloads) 
-* Install required python packages
 
-        conda install --file requirements_conda.txt 
-        pip install -r requirements_pip.txt
-
-* Install [skelet3d package](https://github.com/mjirik/skelet3d)
-* Install Quantan
-
-        pip install quantan
+        conda install quantan
         
 
         
