@@ -63,7 +63,7 @@ requirements:
 
 test:
   # Python imports
-r imports:
+  imports:
     - quantan
 
   # commands:
