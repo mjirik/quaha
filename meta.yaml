@@ -44,6 +44,8 @@ requirements:
     - pysegbase
     - io3d
     - pyqt 4.10.4
+    - pandas
+    - SimpleITK
 
   run:
     - python
@@ -57,6 +59,8 @@ requirements:
     - pysegbase
     - io3d
     - pyqt 4.10.4
+    - pandas
+    - SimpleITK
 
 test:
   # Python imports

@@ -22,11 +22,12 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={localappdata}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes
+PrivilegesRequired=lowest
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -34,8 +35,14 @@ Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
 
 [Run]
 Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"
-;Filename: "{$HOMEPATH}\Miniconda\conda"; Parameters: "install quantan"
+Filename: "{cmd}"; Parameters: "/C ""pause"""
+
 Filename: "{cmd}"; Parameters: "/C ""conda install --yes quantan """
+Filename: "{cmd}"; Parameters: "/C ""pause"""
+Filename: "{%HOME}\Miniconda2\conda.exe"; Parameters: "install quantan"
+;Filename: "net.exe"; Parameters: "localgroup ..."
+Filename: "{cmd}"; Parameters: "/C ""pause"""
+Filename: "{userdocs}\..\Miniconda2\scripts\conda.exe"; Parameters: "install quantan"
 
 [Code]
 procedure InitializeWizard();
