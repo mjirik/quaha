@@ -45,7 +45,6 @@ requirements:
     - io3d
     - pyqt 4.10.4
     - pandas
-    - SimpleITK
 
   run:
     - python
