@@ -29,29 +29,28 @@ DefaultGroupName={#MyAppName}
 OutputBaseFilename=setup_quantan
 Compression=lzma
 SolidCompression=yes
-PrivilegesRequired=lowest
+;PrivilegesRequired=lowest
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
 
 [Run]
-Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"
+Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/InstallationType=JustMe /AddToPath=1"; Flags: runascurrentuser
 ; Filename: "{cmd}"; Parameters: "/C ""pause"""
 ;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/simpleitk """
 ;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/mjirik """
 
-Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c SimpleITK -c mjirik quantan """
+Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c SimpleITK -c mjirik quantan """; Flags: runascurrentuser
 ;Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c mjirik -c SimpleITK quantan """
 
-; this works too                            
+; this works too
 ;Filename: "{userdocs}\..\Miniconda2\scripts\conda.exe"; Parameters: "install --yes -c mjirik -c SimpleITK quantan"
 
 ;Filename: "{cmd}"; Parameters: "/C ""pause"""
 ;Filename: "{%HOME}\Miniconda2\conda.exe"; Parameters: "install quantan"
 ;Filename: "net.exe"; Parameters: "localgroup ..."
 ;Filename: "{cmd}"; Parameters: "/C ""pause"""
-
 
 [Code]
 procedure InitializeWizard();
