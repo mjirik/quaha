@@ -765,8 +765,9 @@ def main():  # pragma: no cover
     if args.debug:
         logger.setLevel(logging.DEBUG)
 
+    args.logfile = op.expanduser(args.logfile)
     try:
-        op.expanduser(args.logfile)
+        os.remove(args.logfile)
     except OSError:
         pass
 
