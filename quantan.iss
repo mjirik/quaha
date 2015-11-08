@@ -37,12 +37,15 @@ Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
 Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"
 Filename: "{cmd}"; Parameters: "/C ""pause"""
 
-Filename: "{cmd}"; Parameters: "/C ""conda install --yes quantan """
-Filename: "{cmd}"; Parameters: "/C ""pause"""
-Filename: "{%HOME}\Miniconda2\conda.exe"; Parameters: "install quantan"
+Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c mjirik -c SimpleITK quantan """
+; this works too
+;Filename: "{userdocs}\..\Miniconda2\scripts\conda.exe"; Parameters: "install quantan"
+
+;Filename: "{cmd}"; Parameters: "/C ""pause"""
+;Filename: "{%HOME}\Miniconda2\conda.exe"; Parameters: "install quantan"
 ;Filename: "net.exe"; Parameters: "localgroup ..."
-Filename: "{cmd}"; Parameters: "/C ""pause"""
-Filename: "{userdocs}\..\Miniconda2\scripts\conda.exe"; Parameters: "install quantan"
+;Filename: "{cmd}"; Parameters: "/C ""pause"""
+
 
 [Code]
 procedure InitializeWizard();
