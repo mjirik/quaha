@@ -31,7 +31,7 @@ Quantitative Analyser
     
 ## Windows 
  
-* Use (installer)[http://147.228.240.61/queetech/install/setup_quantan.exe] 
+* Use [installer](http://147.228.240.61/queetech/install/setup_quantan.exe)
 
 or
 
