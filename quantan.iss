@@ -9,6 +9,7 @@
 
 [Files]
 ;Source: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; DestDir: "{app}"; Flags: external; ExternalSize: 22743040
+Source: "icon\icon.ico"; DestDir: "{app}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -61,4 +62,4 @@ begin
 end;
 
 [Icons]
-Name: "{group}\QuantAn"; Filename: "{cmd}"; Parameters: "/C ""python -m quantan"""
+Name: "{group}\QuantAn"; Filename: "{cmd}"; IconFilename: "{app}\icon.ico"; IconIndex: 0; Parameters: "/C ""python -m quantan"""
