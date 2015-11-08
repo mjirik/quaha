@@ -12,6 +12,7 @@ path_to_script = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(path_to_script, "../extern/dicom2fem/src"))
 
 import traceback
+import os.path as op
 
 import logging
 logger = logging.getLogger(__name__)
@@ -645,6 +646,11 @@ None. Format: "z1 z2 y1 y2 x1 x2". -1 = None (start or end of axis).')
         default=None,
         help='name of output vessel tree file')
 
+    parser.add_argument(
+        '--logfile',
+        default="~/quantan.log",
+        help='Specify logfile name')
+
 
     parser.add_argument(
         '-d', '--debug',
@@ -758,12 +764,13 @@ def main():  # pragma: no cover
     logger.setLevel(logging.WARNING)
     if args.debug:
         logger.setLevel(logging.DEBUG)
-        
+
     try:
-        os.remove("ha.log")
+        op.expanduser(args.logfile)
     except OSError:
         pass
-    fh = logging.FileHandler("ha.log")
+
+    fh = logging.FileHandler(args.logfile)
     fh.setFormatter(logging.Formatter(fmt='%(levelname)s:%(name)s:%(message)s'))
     logger.addHandler(fh)
 

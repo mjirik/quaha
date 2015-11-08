@@ -22,7 +22,8 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={localappdata}\{#MyAppName}
+;DefaultDirName={localappdata}\{#MyAppName}
+DefaultDirName={src}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputBaseFilename=setup
 Compression=lzma
@@ -35,11 +36,15 @@ Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
 
 [Run]
 Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"
-Filename: "{cmd}"; Parameters: "/C ""pause"""
+; Filename: "{cmd}"; Parameters: "/C ""pause"""
+;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/simpleitk """
+;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/mjirik """
 
-Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c mjirik -c SimpleITK quantan """
-; this works too
-;Filename: "{userdocs}\..\Miniconda2\scripts\conda.exe"; Parameters: "install quantan"
+Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c SimpleITK -c mjirik quantan """
+;Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c mjirik -c SimpleITK quantan """
+
+; this works too                            
+;Filename: "{userdocs}\..\Miniconda2\scripts\conda.exe"; Parameters: "install --yes -c mjirik -c SimpleITK quantan"
 
 ;Filename: "{cmd}"; Parameters: "/C ""pause"""
 ;Filename: "{%HOME}\Miniconda2\conda.exe"; Parameters: "install quantan"
