@@ -59,11 +59,11 @@ requirements:
     - io3d
     - pyqt 4.10.4
     - pandas
-    - SimpleITK
+    - simpleitk
 
 test:
   # Python imports
-  imports:
+r imports:
     - quantan
 
   # commands:
