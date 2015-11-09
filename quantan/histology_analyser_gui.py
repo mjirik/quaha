@@ -9,12 +9,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 import sys
-import os.path
-path_to_script = os.path.dirname(os.path.abspath(__file__))
+import os.path as op
+
+path_to_script = op.dirname(op.abspath(__file__))
 # sys.path.append(os.path.join(path_to_script, "../extern/dicom2fem/src"))
 import traceback
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import pyqtSignal, QObject, QRunnable, QThreadPool, Qt
 from PyQt4.QtGui import QMainWindow, QWidget, QDialog, QLabel, QFont,\
     QGridLayout, QFrame, QPushButton, QSizePolicy, QProgressBar, QSpacerItem,\
@@ -47,7 +48,9 @@ class HistologyAnalyserWindow(QMainWindow):
 
     def __init__(self, inputfile = None, voxelsize = None, crop = None, args=None, qapp=None):
         self.qapp = qapp
+
         QMainWindow.__init__(self)
+
         self.initUI()
         
         self.args = args
@@ -78,6 +81,9 @@ class HistologyAnalyserWindow(QMainWindow):
         cw.setLayout(self.ui_gridLayout)
         #self.setWindowTitle('QUAntitative Histological Analyser')
         self.setWindowTitle('QuantAn')
+        # self.setWindowIcon(QtGui.QIcon('icon/icon.ico'))
+        # self.setWindowIcon(QtGui.QIcon('c:/Users/mjirik/projects/quanta/quantan/icon/icon.ico'))
+        self.setWindowIcon(QtGui.QIcon(op.join(path_to_script, 'icon/icon.ico')))
         self.show()
 
     def closeEvent(self, event):

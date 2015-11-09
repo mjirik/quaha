@@ -9,7 +9,7 @@
 
 [Files]
 ;Source: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; DestDir: "{app}"; Flags: external; ExternalSize: 22743040
-Source: "icon\icon.ico"; DestDir: "{app}"
+Source: "quantan\icon\icon.ico"; DestDir: "{app}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -35,8 +35,10 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
 
+
+
 [Run]
-Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/InstallationType=JustMe /AddToPath=1"; Flags: runascurrentuser
+Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/InstallationType=JustMe /AddToPath=1"; Flags: runasoriginaluser
 ; Filename: "{cmd}"; Parameters: "/C ""pause"""
 ;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/simpleitk """
 ;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/mjirik """
@@ -61,4 +63,4 @@ begin
 end;
 
 [Icons]
-Name: "{group}\QuantAn"; Filename: "{cmd}"; IconFilename: "{app}\icon.ico"; IconIndex: 0; Parameters: "/C ""python -m quantan"""
+Name: "{group}\QuantAn"; Filename: "{cmd}"; Flags: runminimized; IconFilename: "{app}\icon.ico"; IconIndex: 0; Parameters: "/C ""python -m quantan"""
