@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 
 from quantan.quantan import HistologyAnalyser
 from quantan.histology_report import HistologyReport
-from imtools.gen_volume_tree import TreeGenerator
 
 
 class HistologyTest(unittest.TestCase):
@@ -28,6 +27,7 @@ class HistologyTest(unittest.TestCase):
 
 
         """
+        from imtools.gen_volume_tree import TreeGenerator
         print "zacatek podezreleho testu"
         # import segmentation
         # import misc
