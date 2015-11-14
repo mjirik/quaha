@@ -5,15 +5,17 @@ Quantitative Analyser
 
 ## Windows 
  
-* Use [installer](http://147.228.240.61/queetech/install/setup_quantan.exe)
-
-or
 
 * Install [Anaconda for python 2.7](https://www.continuum.io/downloads) 
 * Install QuantAn
 
         conda install -c mjirik -c SimpleITK quantan
-        
+
+or
+
+
+* Use [installer](http://147.228.240.61/queetech/install/setup_quantan.exe)
+  (experimental)
 
 
 ## Linux (Ubuntu 14.04)
@@ -39,7 +41,7 @@ or
 
 * Install Quantan
 
-        pip install quantan
+        conda install -c mjirik -c SimpleITK quantan
 
     
         
