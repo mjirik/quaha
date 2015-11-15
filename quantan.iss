@@ -24,27 +24,32 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+;DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={%HOMEPATH}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputBaseFilename=setup_quantan
 Compression=lzma
 SolidCompression=yes
 ;PrivilegesRequired=lowest
+UsePreviousSetupType=False
+UsePreviousTasks=False
+UsePreviousLanguage=False
+ExtraDiskSpaceRequired=43
+SetupIconFile=quantan\icon\icon.ico
+UsePreviousAppDir=False
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
 
-
-
 [Run]
 ;Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/InstallationType=JustMe /AddToPath=1"; Flags: runasoriginaluser
-Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Flags: runasoriginaluser
+Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/AddToPath=1 /RegisterPython=1 /D={%HOMEPATH}\Minicoconda2"; Flags: waituntilterminated runasoriginaluser
 ; Filename: "{cmd}"; Parameters: "/C ""pause"""
 ;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/simpleitk """
 ;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/mjirik """
 
-Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c SimpleITK -c mjirik quantan """; Flags: runascurrentuser
+Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c SimpleITK -c mjirik quantan"""; WorkingDir: "{%HOMEPATH}\Miniconda2\Scripts"; Flags: runasoriginaluser
 ;Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c mjirik -c SimpleITK quantan """
 
 ; this works too
