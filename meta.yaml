@@ -45,7 +45,7 @@ requirements:
     - io3d
     - pyqt 4.10.4
     - pandas
-    - wget
+    - pywget
 
   run:
     - python
@@ -61,7 +61,7 @@ requirements:
     - pyqt 4.10.4
     - pandas
     - simpleitk
-    - wget
+    - pywget
 
 test:
   # Python imports
