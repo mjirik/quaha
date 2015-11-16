@@ -1,21 +1,22 @@
 # QuantAn
 Quantitative Analyser
 
+[Sample data](http://147.228.240.61/queetech/sample-data/biodur_sample.zip)
+
 # Install
 
 ## Windows 
  
+* Use [installer](http://147.228.240.61/queetech/install/setup_quantan.exe)
+  (experimental)
+
+or
 
 * Install [Anaconda for python 2.7](https://www.continuum.io/downloads) 
 * Install QuantAn
 
         conda install -c mjirik -c SimpleITK quantan
 
-or
-
-
-* Use [installer](http://147.228.240.61/queetech/install/setup_quantan.exe)
-  (experimental)
 
 
 ## Linux (Ubuntu 14.04)
@@ -25,8 +26,7 @@ or
         sudo apt-get install cmake libinsighttoolkit3-dev libpng12-dev libgdcm2-dev git wget
         wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
         source Miniconda-latest-Linux-x86_64.sh
-        conda install numpy scipy pip 
-        pip install imtools io3d sed3
+        conda install numpy scipy pip imtools io3d sed3
         
 * Install [skelet3d package](https://github.com/mjirik/skelet3d)
 
