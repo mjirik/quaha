@@ -1,9 +1,9 @@
 package:
   name: quantan
-  version: "0.0.15"
+  version: "0.0.17"
 
 source:
-  git_rev: 0.0.15
+  git_rev: 0.0.17
   git_url: .
   # git_url: https://github.com/mjirik/quantan.git
 
@@ -45,6 +45,7 @@ requirements:
     - io3d
     - pyqt 4.10.4
     - pandas
+    - pywget
 
   run:
     - python
@@ -60,6 +61,7 @@ requirements:
     - pyqt 4.10.4
     - pandas
     - simpleitk
+    - pywget
 
 test:
   # Python imports
