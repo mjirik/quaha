@@ -10,7 +10,7 @@
 [Files]
 ;Source: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; DestDir: "{app}"; Flags: external; ExternalSize: 22743040
 Source: "quantan\icon\icon.ico"; DestDir: "{app}"
-Source: "..\..\Downloads\Miniconda-latest-Windows-x86_64.exe"; DestDir: "{tmp}"
+;Source: "..\..\Downloads\Miniconda-latest-Windows-x86_64.exe"; DestDir: "{tmp}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -24,8 +24,9 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-;DefaultDirName={pf}\{#MyAppName}
-DefaultDirName={%HOMEPATH}\{#MyAppName}
+DefaultDirName={pf}\{#MyAppName}
+;DefaultDirName={%HOMEPATH}\{#MyAppName}
+;DefaultDirName={userpf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputBaseFilename=setup_quantan
 Compression=lzma
@@ -60,13 +61,13 @@ Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c SimpleITK -c mjirik 
 ;Filename: "net.exe"; Parameters: "localgroup ..."
 ;Filename: "{cmd}"; Parameters: "/C ""pause"""
 
-;[Code]
-;procedure InitializeWizard();
-;begin
-;    idpAddFileSize('https://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe', ExpandConstant('{tmp}\Miniconda-latest-Windows-x86_64.exe'), 22743040);
-;
-;    idpDownloadAfter(wpReady);
-;end;
+[Code]
+procedure InitializeWizard();
+begin
+    idpAddFileSize('https://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe', ExpandConstant('{tmp}\Miniconda-latest-Windows-x86_64.exe'), 22743040);
+
+    idpDownloadAfter(wpReady);
+end;
 
 [Icons]
-Name: "{group}\QuantAn"; Filename: "{cmd}"; Flags: runminimized; IconFilename: "{app}\icon.ico"; IconIndex: 0; Parameters: "/C ""python -m quantan"""
+Name: "{group}\QuantAn"; Filename: "{cmd}"; WorkingDir: "{userdocs}"; Flags: runminimized; IconFilename: "{app}\icon.ico"; IconIndex: 0; Parameters: "/C ""python -m quantan"""
