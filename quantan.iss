@@ -38,36 +38,52 @@ UsePreviousLanguage=False
 ExtraDiskSpaceRequired=43
 SetupIconFile=quantan\icon\icon.ico
 UsePreviousAppDir=False
+UsePreviousGroup=False
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
 
 [Run]
-;Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/InstallationType=JustMe /AddToPath=1"; Flags: runasoriginaluser
-Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/AddToPath=1 /RegisterPython=1 /D={%HOMEPATH}\Minicoconda2"; Flags: waituntilterminated runasoriginaluser
+;Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/AddToPath=1 /RegisterPython=1 /D={%HOMEPATH}\Minicoconda2"; Flags: waituntilterminated runasoriginaluser
+Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/AddToPath=1 /RegisterPython=1 /InstallationType=AllUsers"; Flags: waituntilterminated runasoriginaluser; Check: IsCondaInstalled
 ; Filename: "{cmd}"; Parameters: "/C ""pause"""
-;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/simpleitk """
-;Filename: "{cmd}"; Parameters: "/C ""conda config --add http://conda.anaconda.org/mjirik """
 
-Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c SimpleITK -c mjirik quantan"""; WorkingDir: "{%HOMEPATH}\Miniconda2\Scripts"; Flags: runasoriginaluser
-;Filename: "{cmd}"; Parameters: "/C ""conda install --yes -c mjirik -c SimpleITK quantan """
-
-; this works too
-;Filename: "{userdocs}\..\Miniconda2\scripts\conda.exe"; Parameters: "install --yes -c mjirik -c SimpleITK quantan"
-
+; instalace je rozdelena pro pripad, ze by jiz prostredi quantan existovalo, pak by doslo k selhani
+Filename: "{cmd}"; Parameters: "/C ""set PATH=%PATH%;%HOMEPATH%\Miniconda2;%HOMEPATH%\Miniconda2\Scripts;C:\Miniconda2\Scripts;C:\Miniconda2 & conda create -y -c SimpleITK -c mjirik -n quantan quantan"""; Flags: runasoriginaluser waituntilidle
+;Filename: "{cmd}"; Parameters: "/C ""set PATH=%PATH%;%HOMEPATH%\Miniconda2;%HOMEPATH%\Miniconda2\Scripts;C:\Miniconda2\Scripts;C:\Miniconda2 & conda install -y -c SimpleITK -c mjirik quantan"""; Flags: runasoriginaluser waituntilidle
 ;Filename: "{cmd}"; Parameters: "/C ""pause"""
-;Filename: "{%HOME}\Miniconda2\conda.exe"; Parameters: "install quantan"
-;Filename: "net.exe"; Parameters: "localgroup ..."
-;Filename: "{cmd}"; Parameters: "/C ""pause"""
+
+;if IsCondaInstalled then
 
 [Code]
+function IsCondaInstalled: boolean;
+var
+  ResultCode: Integer;
+begin
+//result := not FileExists('c:\Miniconda2\Scripts\conda.exe');
+result := not (FileExists('c:\Miniconda2\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Miniconda2\Scripts\conda.exe') or FileExists('c:\Anaconda2\Scripts\conda.exe') or FileExists('c:\Miniconda\Scripts\conda.exe') or FileExists('c:\Anaconda\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Miniconda2\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Miniconda\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Anaconda2\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Anaconda\Scripts\conda.exe'));
+//result := not Exec('conda', '', '', SW_SHOW, ewWaitUntilTerminated, ResultCode)
+
+//  Result := True;
+//  if Exec(ExpandConstant('conda'), '', '', 
+//    SW_SHOW
+//    , ewWaitUntilTerminated, ResultCode) then
+//  begin
+//    if ResultCode = 0 then    
+//      Result := False
+//    else
+//      MsgBox('The authorization failed!', mbCriticalError, MB_OK);
+//  end;
+end;
+
 procedure InitializeWizard();
 begin
+  if IsCondaInstalled then
     idpAddFileSize('https://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe', ExpandConstant('{tmp}\Miniconda-latest-Windows-x86_64.exe'), 22743040);
-
-    idpDownloadAfter(wpReady);
+  idpDownloadAfter(wpReady);
 end;
 
 [Icons]
-Name: "{group}\QuantAn"; Filename: "{cmd}"; WorkingDir: "{userdocs}"; Flags: runminimized; IconFilename: "{app}\icon.ico"; IconIndex: 0; Parameters: "/C ""python -m quantan"""
+Name: "{group}\QuantAn"; Filename: "{cmd}"; WorkingDir: "{userdocs}"; Flags: runminimized; IconFilename: "{app}\icon.ico"; IconIndex: 0; Parameters: "/C ""call activate quantan & python -m quantan"""
+Name: "{commondesktop}\Lisa"; Filename: "{cmd}"; WorkingDir: "{commondocs}"; Flags: runminimized; IconFilename: "{app}\LISA.ico"; IconIndex: 0; Parameters: "/C ""call activate quantan & python -m quantan"""
