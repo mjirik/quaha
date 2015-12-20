@@ -70,6 +70,12 @@ class HistologyAnalyser:
         self.graph_label = 'microstructure'
         self.anotation = ''
 
+    def save_skeleton(self, filename):
+        io3d.datawriter.write(self.sklabel, filename)
+
+    def save_segmentation(self, filename):
+        io3d.datawriter.write(self.data3d_thr, filename)
+
     def set_anotation(self, text):
         self.anotation = text
 

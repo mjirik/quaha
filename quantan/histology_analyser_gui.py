@@ -140,11 +140,14 @@ class HistologyAnalyserWindow(QMainWindow):
             self.ha.data3d_masked = self.masked
             
         if self.args.savemask and bad_mask == True: # save mask to file
-            logger.debug('Saving mask to file...')
-            misc.obj_to_file(self.masked, filename='mask.pkl', filetype='pickle')
+            self.save_mask()
 
         ### Segmentation
         self.showSegmQueryDialog()
+
+    def save_mask(self, filename='mask.pkl'):
+        logger.debug('Saving mask to file...')
+        misc.obj_to_file(self.masked, filename='mask.pkl', filetype='pickle')
 
     def runSegmentation(self, default=False):
         logger.debug('Segmentation')
@@ -243,6 +246,24 @@ class HistologyAnalyserWindow(QMainWindow):
         # jednou pro celou aplikaci.
 
         newapp.exec_()
+
+    def save_segmentation(self):
+        """
+        save segmentation dialog
+        :return:
+        """
+        logger.debug('save segmentation')
+        fn = getSavePath('segmentation', 'dcm')
+        self.ha.save_segmentation(fn)
+
+    def save_labeled_skeleton(self):
+        """
+        save labeled skeleton dialog
+        :return:
+        """
+        logger.debug('save labeled skeleton')
+        fn = getSavePath('skeleton', 'dcm')
+        self.ha.save_skeleton(fn)
 
     def showSegmWaitDialog(self):
         newapp = SegmWaitDialog(self)
@@ -433,13 +454,19 @@ class SegmResultDialog(QDialog):
         btn_segm.clicked.connect(self.mainWindow.showSegmQueryDialog)
         btn_stats = QPushButton("Compute Statistics", self)
         btn_stats.clicked.connect(self.mainWindow.showStatsRunDialog)
+        btn_save_segmentation = QPushButton("Save segmentation", self)
+        btn_save_segmentation.clicked.connect(self.mainWindow.save_segmentation)
+        btn_save_skeleton = QPushButton("Save labeled skeleton", self)
+        btn_save_skeleton.clicked.connect(self.mainWindow.save_labeled_skeleton)
 
         self.ui_gridLayout.addWidget(QLabel('Node aggregation distance'), rstart + 0, 1)
         self.ui_gridLayout.addWidget(aggregate_textbox, rstart + 1, 1)
         self.ui_gridLayout.addWidget(QLabel(''), rstart + 2, 1)
         self.ui_gridLayout.addWidget(btn_preview, rstart + 3, 1)
         self.ui_gridLayout.addWidget(btn_segm, rstart + 4, 1)
-        self.ui_gridLayout.addWidget(btn_stats, rstart + 5, 1)
+        self.ui_gridLayout.addWidget(btn_save_segmentation, rstart + 5, 1)
+        self.ui_gridLayout.addWidget(btn_save_skeleton, rstart + 6, 1)
+        self.ui_gridLayout.addWidget(btn_stats, rstart + 7, 1)
         rstart += 3
 
         ### Stretcher
@@ -925,6 +952,18 @@ class LoadDialog(QDialog):
         self.text_dcm_data.setText('Data info: '+str(shape[0])+'x'+str(shape[1])+'x'+str(shape[2])+', '+str(voxelsize))
 
         self.mainWindow.setStatusBarText('Ready')
+
+
+def getSavePath(self, ofilename="stats", extension="yaml"):
+    logger.debug("GetSavePathDialog")
+
+    filename = str(QFileDialog.getSaveFileName(self,
+                                               "Save file",
+                                               "./" + ofilename + "." + extension,
+                                               filter="*." + extension))
+
+    return filename
+
 
 if __name__ == "__main__":
     HA.main()

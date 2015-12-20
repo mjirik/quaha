@@ -323,17 +323,23 @@ class HistologyReportDialog(QDialog):
         logger.info("Writing skeleton")
         filename = self.getSavePath("sklabel", "dcm")
         if filename is None or filename == "":
-            logger.debug("File save cenceled")
+            logger.debug("File save canceled")
             return
         
         self.mainWindow.setStatusBarText('Saving labeled skeleton image')
-        io3d.datawriter.write(self.ha.sklabel, filename)
+        io3d.datawriter.save_skeleton(filename)
+
         # self.ha.writeStatsToYAML(filename)
         self.mainWindow.setStatusBarText('Ready')
         
         if not self.recordAdded:
             self.addResultsRecord()
+
     def writeYAML(self):
+        """
+        write information about every edge into file
+        :return:
+        """
         logger.info("Writing statistics YAML file")
         filename = self.getSavePath("hist_stats", "yaml")
         if filename is None or filename == "":
@@ -348,6 +354,10 @@ class HistologyReportDialog(QDialog):
             self.addResultsRecord()
 
     def writeCSV(self):
+        """
+        write information about every edge into file
+        :return:
+        """
         logger.info("Writing statistics CSV file")
         filename = self.getSavePath("hist_stats", "csv")
         if filename is None or filename == "":
