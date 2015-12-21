@@ -59,3 +59,10 @@ Run QuantAn with:
 ![img](http://147.228.240.61/queetech/www/quanta07.png)
 
 ![img](http://147.228.240.61/queetech/www/quanta08.png)
+
+
+# Sample outputs
+
+[segmentation (DICOM)](http://147.228.240.61/queetech/www/segmentation.dcm)
+[skeletn (DICOM)](http://147.228.240.61/queetech/www/skeleton.dcm)
+[labeled skeleton (DICOM)](http://147.228.240.61/queetech/www/labeled_skeleton.dcm)
