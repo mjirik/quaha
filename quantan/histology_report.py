@@ -66,7 +66,37 @@ class HistologyReport:
         logger.debug('write report to yaml')
         misc.obj_to_file(self.stats, filename=filename, filetype='yaml')
 
+    # def prepareReportInformation(self):
+    #     data_m = self.stats['Report']['Main']
+    #     data_o = self.stats['Report']['Other']
+    #     data_g = self.data['general']
+    #     # Main
+    #     # subdict from
+    #     req_keys = ['Vessel volume fraction (Vv)',
+    #                 'Surface density (Sv)',
+    #                 'Length density (Lv)',
+    #                 'Tortuosity', 'Nv', 'Vref']
+    #     report_data = extract_subdict(data_m, req_keys)
+    #
+    #     report_data.update(
+    #         extract_subdict(data_o, ["Avg length mm", 'Total length mm','Avg radius mm'])
+    #     )
+    #     # Other
+    #     report_data['Radius histogram values'] = data_o['Radius histogram'][0]
+    #     report_data['Radius histogram bins'] = data_o['Radius histogram'][1]
+    #     report_data['Radius histogram values'] = data_o['Length histogram'][0]
+    #     report_data['Radius histogram bins'] = data_o['Length histogram'][1]
+    #     report_data['shape_px'] = "x".join(map(str, data_g['shape_px'])),
+    #     report_data['voxelsize_mm'] = "x".join(map(str, data_g['voxel_size_mm'])),
+    #     report_data['datetime'] = str(datetime.datetime.now()),
+    #     return report_data
+
     def writeReportToCSV(self, filename='hist_report.csv'):
+        """
+        obsolete function
+        :param filename:
+        :return:
+        """
         logger.debug('write report to csv')
         data = self.stats['Report']
 
@@ -93,27 +123,45 @@ class HistologyReport:
             writer.writerow(data['Other']['Length histogram'][0])
             writer.writerow(data['Other']['Length histogram'][1])
             
-    def addResultsRecord(self, label='_LABEL_', datapath="_GENERATED_DATA_", recordfilename='statsRecords'):
+    def addResultsRecord(self, label='_LABEL_', datapath="_GENERATED_DATA_", recordfilename='statsRecords.csv'):
         logger.debug("Adding Results record to file: "+recordfilename+".*")
-        cols = ['label', 'Vv', 'Sv', 'Lv', 'Tort', 'Nv', 'Vref', 'shape', 'voxelsize', 'datetime', 'path']
-        
+        cols = ['label', 'Vv', 'Sv', 'Lv', 'Tort', 'Nv', 'Vref', 'shape', 'voxelsize', 'datetime', 'path',
+                'Avg length mm',
+                'Total length mm',
+                'Avg radius mm',
+                'Radius histogram values',
+                'Radius histogram bins',
+                'Length histogram values',
+                'Length histogram bins',
+                ]
+
         data_r_m = self.stats['Report']['Main']
         data_g = self.data['general']
-        newrow = [[label, 
-                    data_r_m['Vessel volume fraction (Vv)'], 
-                    data_r_m['Surface density (Sv)'], 
-                    data_r_m['Length density (Lv)'], 
-                    data_r_m['Tortuosity'], 
-                    data_r_m['Nv'], 
-                    data_r_m['Vref'], 
-                    "-".join(map(str, data_g['shape_px'])), 
-                    "-".join(map(str, data_g['voxel_size_mm'])), 
-                    str(datetime.datetime.now()),
-                    datapath]]
-        
+        data_o = self.stats['Report']['Other']
+        newrow = [[
+            label,
+            data_r_m['Vessel volume fraction (Vv)'],
+            data_r_m['Surface density (Sv)'],
+            data_r_m['Length density (Lv)'],
+            data_r_m['Tortuosity'],
+            data_r_m['Nv'],
+            data_r_m['Vref'],
+            "x".join(map(str, data_g['shape_px'])),
+            "x".join(map(str, data_g['voxel_size_mm'])),
+            str(datetime.datetime.now()),
+            datapath,
+            data_o['Avg length mm'],
+            data_o['Total length mm'],
+            data_o['Avg radius mm'],
+            data_o['Radius histogram'][0],
+            data_o['Radius histogram'][1],
+            data_o['Length histogram'][0],
+            data_o['Length histogram'][1],
+        ]]
+        # data['label']
         df = pd.DataFrame(newrow, columns=cols)
         
-        filename = recordfilename+'.csv'
+        filename = recordfilename
         append = os.path.isfile(filename)
         with open(filename, 'a') as f:
             if append:
@@ -282,22 +330,25 @@ class HistologyReportDialog(QDialog):
         rstart +=3
 
         ### buttons
-        btn_yaml = QPushButton("Write statistics to YAML", self)
-        btn_yaml.clicked.connect(self.writeYAML)
-        btn_csv = QPushButton("Write statistics to CSV", self)
-        btn_csv.clicked.connect(self.writeCSV)
+        btn_yaml = QPushButton("Write details to YAML", self)
+        btn_yaml.clicked.connect(self.writeDetailedYAML)
+        btn_csv = QPushButton("Write details to CSV", self)
+        btn_csv.clicked.connect(self.writeDetailedCSV)
         btn_data3d = QPushButton("Save labeled skeleton", self)
         btn_data3d.clicked.connect(self.btnWriteLabeledSkeleton)
         btn_rep_yaml = QPushButton("Write report to YAML", self)
         btn_rep_yaml.clicked.connect(self.writeReportYAML)
         btn_rep_csv = QPushButton("Write report to CSV", self)
-        btn_rep_csv.clicked.connect(self.writeReportCSV)
+        btn_rep_csv.clicked.connect(self.btnWriteReportCSV)
+        btn_add_row_csv= QPushButton("Write row to CSV", self)
+        btn_add_row_csv.clicked.connect(self.btnAddResultRecordCSV)
 
         self.ui_gridLayout.addWidget(btn_yaml, rstart + 0, 0)
-        self.ui_gridLayout.addWidget(btn_csv, rstart + 0, 1)
+        self.ui_gridLayout.addWidget(btn_csv, rstart + 1, 0)
+        self.ui_gridLayout.addWidget(btn_rep_yaml, rstart + 0, 1)
+        self.ui_gridLayout.addWidget(btn_rep_csv, rstart + 1, 1)
         self.ui_gridLayout.addWidget(btn_data3d, rstart + 0, 2)
-        self.ui_gridLayout.addWidget(btn_rep_yaml, rstart + 0, 3)
-        self.ui_gridLayout.addWidget(btn_rep_csv, rstart + 0, 4)
+        self.ui_gridLayout.addWidget(btn_add_row_csv, rstart + 1, 2)
         rstart +=1
 
         ### Stretcher
@@ -333,11 +384,22 @@ class HistologyReportDialog(QDialog):
         self.mainWindow.setStatusBarText('Ready')
         
         if not self.recordAdded:
-            self.addResultsRecord()
+            self.addResultsRecordWithOthers()
 
-    def writeYAML(self):
+    def btnAddResultRecordCSV(self):
+        # TODO change filename
+        filename = self.getSavePath("statsRecords.", "csv")
+        if filename is None or filename == "":
+            logger.debug("File save cenceled")
+            return
+        self.mainWindow.setStatusBarText('Statistics - writing CSV file')
+        self.addResultsRecord(recordfilename=filename)
+        self.mainWindow.setStatusBarText('Ready')
+
+
+    def writeDetailedYAML(self):
         """
-        write information about every edge into file
+        write detailed information about every edge into file
         :return:
         """
         logger.info("Writing statistics YAML file")
@@ -351,11 +413,11 @@ class HistologyReportDialog(QDialog):
         self.mainWindow.setStatusBarText('Ready')
         
         if not self.recordAdded:
-            self.addResultsRecord()
+            self.addResultsRecordWithOthers()
 
-    def writeCSV(self):
+    def writeDetailedCSV(self):
         """
-        write information about every edge into file
+        write detailed information about every edge into file
         :return:
         """
         logger.info("Writing statistics CSV file")
@@ -369,7 +431,7 @@ class HistologyReportDialog(QDialog):
         self.mainWindow.setStatusBarText('Ready')
         
         if not self.recordAdded:
-            self.addResultsRecord()
+            self.addResultsRecordWithOthers()
 
     def writeReportYAML(self):
         logger.info("Writing report YAML file")
@@ -383,9 +445,9 @@ class HistologyReportDialog(QDialog):
         self.mainWindow.setStatusBarText('Ready')
         
         if not self.recordAdded:
-            self.addResultsRecord()
+            self.addResultsRecordWithOthers()
 
-    def writeReportCSV(self):
+    def btnWriteReportCSV(self):
         logger.info("Writing report CSV file")
         filename = self.getSavePath("hist_report", "csv")
         if filename is None or filename == "":
@@ -397,15 +459,27 @@ class HistologyReportDialog(QDialog):
         self.mainWindow.setStatusBarText('Ready')
         
         if not self.recordAdded:
-            self.addResultsRecord()
-        
-    def addResultsRecord(self):
+            self.addResultsRecordWithOthers()
+
+    def addResultsRecord(self, recordfilename='statsRecords.csv'):
         # Add results Record
+        # if not self.recordAdded:
         label = "GUI mode"
         if self.mainWindow.inputfile is None or self.mainWindow.inputfile == "":
-            self.hr.addResultsRecord(label=label)
+            self.hr.addResultsRecord(label=label, recordfilename=recordfilename)
         else:
-            self.hr.addResultsRecord(label=label, datapath=self.mainWindow.inputfile)
+            self.hr.addResultsRecord(label=label, datapath=self.mainWindow.inputfile, recordfilename=recordfilename)
+
+    def addResultsRecordWithOthers(self):
+        """
+        This is obsolete
+        :param recordfilename:
+        :return:
+        """
+        # TODO remove this function
+        # Add results Record
+        # if not self.recordAdded:
+        self.addResultsRecordWithOthers()
         self.recordAdded = True
 
     class HistogramMplCanvas(FigureCanvas):
@@ -475,6 +549,8 @@ class HistologyReportDialog(QDialog):
             if self.text_ylabel is not '':
                 self.axes.set_ylabel(self.text_ylabel)
 
+def extract_subdict(adict, keys):
+    return {k:adict[k] for k in keys if k in adict}
 
 if __name__ == "__main__":
     # input parser

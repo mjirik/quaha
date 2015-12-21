@@ -663,6 +663,11 @@ None. Format: "z1 z2 y1 y2 x1 x2". -1 = None (start or end of axis).')
         help='name of output vessel tree file')
 
     parser.add_argument(
+            '-orcsv', '--output_report_csv_file',
+            # TODO change to something with word report (hist_report) for now it is because of compatibility with jkunes
+            default='statsRecords.csv',
+            help='name of output vessel tree file')
+    parser.add_argument(
         '--logfile',
         default="~/quantan.log",
         help='Specify logfile name')
@@ -697,6 +702,7 @@ def processData(args):
     binaryOpening=args.binaryclosing
     vtfile=args.vtfile
     vt2esofspy=args.vt2esofspy
+    output_report_csv_file=args.output_report_csv_file
     
     # Reading/Generating data
     if inputfile is None:  # # Using generated sample data
@@ -753,7 +759,9 @@ def processData(args):
     hr = HistologyReport()
     hr.data = ha.stats
     hr.generateStats()
+    # TODO Rename functions
     hr.writeReportToCSV()
+    hr.addResultsRecord(recordfilename=output_report_csv_file)
     hr.writeReportToYAML()
 
     
