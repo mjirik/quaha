@@ -63,6 +63,6 @@ Run QuantAn with:
 
 # Sample outputs
 
-[segmentation (DICOM)](http://147.228.240.61/queetech/www/segmentation.dcm)
-[skeletn (DICOM)](http://147.228.240.61/queetech/www/skeleton.dcm)
-[labeled skeleton (DICOM)](http://147.228.240.61/queetech/www/labeled_skeleton.dcm)
+* [segmentation (DICOM)](http://147.228.240.61/queetech/www/segmentation.dcm)
+* [skeleton (DICOM)](http://147.228.240.61/queetech/www/skeleton.dcm)
+* [labeled skeleton (DICOM)](http://147.228.240.61/queetech/www/labeled_skeleton.dcm)
