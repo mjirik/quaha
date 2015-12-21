@@ -253,7 +253,7 @@ class HistologyAnalyserWindow(QMainWindow):
         :return:
         """
         logger.debug('save segmentation')
-        fn = getSavePath('segmentation', 'dcm')
+        fn = self.getSavePath('segmentation', 'dcm')
         self.ha.save_segmentation(fn)
 
     def save_labeled_skeleton(self):
@@ -262,7 +262,7 @@ class HistologyAnalyserWindow(QMainWindow):
         :return:
         """
         logger.debug('save labeled skeleton')
-        fn = getSavePath('skeleton', 'dcm')
+        fn = self.getSavePath('skeleton', 'dcm')
         self.ha.save_skeleton(fn)
 
     def showSegmWaitDialog(self):
@@ -334,6 +334,16 @@ class HistologyAnalyserWindow(QMainWindow):
         newapp.signal_finished.connect(self.processDataGUI)
         self.fixWindow()
         newapp.exec_()
+
+    def getSavePath(self, ofilename="stats", extension="yaml"):
+        logger.debug("GetSavePathDialog")
+
+        filename = str(QFileDialog.getSaveFileName(self,
+                                                   "Save file",
+                                                   "./" + ofilename + "." + extension,
+                                                   filter="*." + extension))
+
+        return filename
 
 # TODO - nicer look
 class SegmQueryDialog(QDialog):
@@ -953,16 +963,6 @@ class LoadDialog(QDialog):
 
         self.mainWindow.setStatusBarText('Ready')
 
-
-def getSavePath(self, ofilename="stats", extension="yaml"):
-    logger.debug("GetSavePathDialog")
-
-    filename = str(QFileDialog.getSaveFileName(self,
-                                               "Save file",
-                                               "./" + ofilename + "." + extension,
-                                               filter="*." + extension))
-
-    return filename
 
 
 if __name__ == "__main__":
