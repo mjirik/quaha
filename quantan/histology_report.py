@@ -286,8 +286,8 @@ class HistologyReportDialog(QDialog):
         btn_yaml.clicked.connect(self.writeYAML)
         btn_csv = QPushButton("Write statistics to CSV", self)
         btn_csv.clicked.connect(self.writeCSV)
-        btn_data3d = QPushButton("Save labeled image", self)
-        btn_data3d.clicked.connect(self.btnWriteData3d)
+        btn_data3d = QPushButton("Save labeled skeleton", self)
+        btn_data3d.clicked.connect(self.btnWriteLabeledSkeleton)
         btn_rep_yaml = QPushButton("Write report to YAML", self)
         btn_rep_yaml.clicked.connect(self.writeReportYAML)
         btn_rep_csv = QPushButton("Write report to CSV", self)
@@ -319,9 +319,9 @@ class HistologyReportDialog(QDialog):
         
         return filename
 
-    def btnWriteData3d(self):
+    def btnWriteLabeledSkeleton(self):
         logger.info("Writing skeleton")
-        filename = self.getSavePath("sklabel", "dcm")
+        filename = self.getSavePath("labeled_skeleton", "dcm")
         if filename is None or filename == "":
             logger.debug("File save canceled")
             return
