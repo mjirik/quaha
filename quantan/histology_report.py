@@ -338,17 +338,17 @@ class HistologyReportDialog(QDialog):
         btn_data3d.clicked.connect(self.btnWriteLabeledSkeleton)
         btn_rep_yaml = QPushButton("Write report to YAML", self)
         btn_rep_yaml.clicked.connect(self.writeReportYAML)
-        btn_rep_csv = QPushButton("Write report to CSV", self)
-        btn_rep_csv.clicked.connect(self.btnWriteReportCSV)
-        btn_add_row_csv= QPushButton("Write row to CSV", self)
+        # btn_rep_csv = QPushButton("Write report to CSV", self)
+        # btn_rep_csv.clicked.connect(self.btnWriteReportCSV)
+        btn_add_row_csv= QPushButton("Write report row to CSV", self)
         btn_add_row_csv.clicked.connect(self.btnAddResultRecordCSV)
 
         self.ui_gridLayout.addWidget(btn_yaml, rstart + 0, 0)
         self.ui_gridLayout.addWidget(btn_csv, rstart + 1, 0)
-        self.ui_gridLayout.addWidget(btn_rep_yaml, rstart + 0, 1)
-        self.ui_gridLayout.addWidget(btn_rep_csv, rstart + 1, 1)
-        self.ui_gridLayout.addWidget(btn_data3d, rstart + 0, 2)
-        self.ui_gridLayout.addWidget(btn_add_row_csv, rstart + 1, 2)
+        # self.ui_gridLayout.addWidget(btn_rep_yaml, rstart + 0, 1)
+        # self.ui_gridLayout.addWidget(btn_rep_csv, rstart + 1, 1)
+        self.ui_gridLayout.addWidget(btn_data3d, rstart + 0, 1)
+        self.ui_gridLayout.addWidget(btn_add_row_csv, rstart + 1, 1)
         rstart +=1
 
         ### Stretcher
@@ -479,7 +479,7 @@ class HistologyReportDialog(QDialog):
         # TODO remove this function
         # Add results Record
         # if not self.recordAdded:
-        self.addResultsRecordWithOthers()
+        self.addResultsRecord()
         self.recordAdded = True
 
     class HistogramMplCanvas(FigureCanvas):
