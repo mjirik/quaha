@@ -256,14 +256,23 @@ class HistologyAnalyserWindow(QMainWindow):
         fn = self.getSavePath('segmentation', 'dcm')
         self.ha.save_segmentation(fn)
 
+    def save_skeleton(self):
+        """
+        save labeled skeleton dialog
+        :return:
+        """
+        logger.debug('save skeleton')
+        fn = self.getSavePath('skeleton', 'dcm')
+        self.ha.save_skeleton(fn)
+
     def save_labeled_skeleton(self):
         """
         save labeled skeleton dialog
         :return:
         """
         logger.debug('save labeled skeleton')
-        fn = self.getSavePath('skeleton', 'dcm')
-        self.ha.save_skeleton(fn)
+        fn = self.getSavePath('labeled_skeleton', 'dcm')
+        self.ha.save_labeled_skeleton(fn)
 
     def showSegmWaitDialog(self):
         newapp = SegmWaitDialog(self)
@@ -449,7 +458,7 @@ class SegmResultDialog(QDialog):
         info_label = QLabel('Segmentation finished')
         info_label.setFont(font_info)
 
-        self.ui_gridLayout.addWidget(info_label, rstart + 0, 0, 1, 3)
+        self.ui_gridLayout.addWidget(info_label, rstart + 0, 0, 1, 2)
         rstart += 1
 
 # TODO aggregate_nodes_distance text box
@@ -466,17 +475,20 @@ class SegmResultDialog(QDialog):
         btn_stats.clicked.connect(self.mainWindow.showStatsRunDialog)
         btn_save_segmentation = QPushButton("Save segmentation", self)
         btn_save_segmentation.clicked.connect(self.mainWindow.save_segmentation)
-        btn_save_skeleton = QPushButton("Save labeled skeleton", self)
-        btn_save_skeleton.clicked.connect(self.mainWindow.save_labeled_skeleton)
+        btn_save_skeleton = QPushButton("Save skeleton", self)
+        btn_save_skeleton.clicked.connect(self.mainWindow.save_skeleton)
+        btn_save_labeled_skeleton = QPushButton("Save labeled skeleton", self)
+        btn_save_labeled_skeleton.clicked.connect(self.mainWindow.save_labeled_skeleton)
 
-        self.ui_gridLayout.addWidget(QLabel('Node aggregation distance'), rstart + 0, 1)
-        self.ui_gridLayout.addWidget(aggregate_textbox, rstart + 1, 1)
-        self.ui_gridLayout.addWidget(QLabel(''), rstart + 2, 1)
+        self.ui_gridLayout.addWidget(QLabel('Node aggregation distance'), rstart + 0, 0, 1, 2)
+        self.ui_gridLayout.addWidget(aggregate_textbox, rstart + 1, 0, 1, 2)
+        self.ui_gridLayout.addWidget(QLabel(''), rstart + 2, 0)
+        self.ui_gridLayout.addWidget(btn_save_segmentation, rstart + 3, 0)
+        self.ui_gridLayout.addWidget(btn_save_skeleton, rstart + 4, 0)
+        self.ui_gridLayout.addWidget(btn_save_labeled_skeleton, rstart + 5, 0)
         self.ui_gridLayout.addWidget(btn_preview, rstart + 3, 1)
         self.ui_gridLayout.addWidget(btn_segm, rstart + 4, 1)
-        self.ui_gridLayout.addWidget(btn_save_segmentation, rstart + 5, 1)
-        self.ui_gridLayout.addWidget(btn_save_skeleton, rstart + 6, 1)
-        self.ui_gridLayout.addWidget(btn_stats, rstart + 7, 1)
+        self.ui_gridLayout.addWidget(btn_stats, rstart + 5, 1)
         rstart += 3
 
         ### Stretcher

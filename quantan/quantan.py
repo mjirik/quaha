@@ -71,10 +71,16 @@ class HistologyAnalyser:
         self.anotation = ''
 
     def save_skeleton(self, filename):
-        io3d.datawriter.write(self.sklabel, filename)
+        import io3d
+        io3d.datawriter.write(data3d=self.data3d_skel.astype(np.uint8), path=filename, metadata=self.metadata)
+
+    def save_labeled_skeleton(self, filename):
+        import io3d
+        io3d.datawriter.write(data3d=self.get_sklabel().astype(np.int32), path=filename, metadata=self.metadata)
 
     def save_segmentation(self, filename):
-        io3d.datawriter.write(self.data3d_thr, filename)
+        import io3d
+        io3d.datawriter.write(data3d=self.data3d_thr.astype(np.uint8), path=filename, metadata=self.metadata)
 
     def set_anotation(self, text):
         self.anotation = text
@@ -351,15 +357,19 @@ class HistologyAnalyser:
         
         return Nv
 
-    def showSegmentedData(self):
+    def get_sklabel(self):
         skan = SkeletonAnalyser(
-            self.data3d_skel,
-            volume_data=self.data3d_thr,
-            voxelsize_mm=self.metadata['voxelsize_mm'],
-            aggregate_near_nodes_distance = self.aggregate_near_nodes_distance,
-            )
-        data3d_nodes_vis = skan.sklabel.copy()
+                self.data3d_skel,
+                volume_data=self.data3d_thr,
+                voxelsize_mm=self.metadata['voxelsize_mm'],
+                aggregate_near_nodes_distance = self.aggregate_near_nodes_distance,
+        )
+        sklabel = skan.sklabel.copy()
         del(skan)
+        return sklabel
+
+    def showSegmentedData(self):
+        data3d_nodes_vis = self.get_sklabel()
 
         # edges
         data3d_nodes_vis[data3d_nodes_vis > 0] = 1
