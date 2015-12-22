@@ -54,11 +54,11 @@ Run QuantAn with:
 
 ![img](http://147.228.240.61/queetech/www/quantan01.png)
 
-![img](http://147.228.240.61/queetech/www/quanta03.png)
+![img](http://147.228.240.61/queetech/www/quantan03.png)
 
-![img](http://147.228.240.61/queetech/www/quanta07.png)
+![img](http://147.228.240.61/queetech/www/quantan08.png)
 
-![img](http://147.228.240.61/queetech/www/quanta08.png)
+![img](http://147.228.240.61/queetech/www/quantan10.png)
 
 
 # Sample outputs
