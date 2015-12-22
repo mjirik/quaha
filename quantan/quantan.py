@@ -75,8 +75,10 @@ class HistologyAnalyser:
         io3d.datawriter.write(data3d=self.data3d_skel.astype(np.uint8), path=filename, metadata=self.metadata)
 
     def save_labeled_skeleton(self, filename):
+        sklabel = self.sklabel
+        # self.get_sklabel()
         import io3d
-        io3d.datawriter.write(data3d=self.get_sklabel().astype(np.int32), path=filename, metadata=self.metadata)
+        io3d.datawriter.write(data3d=sklabel.astype(np.int32), path=filename, metadata=self.metadata)
 
     def save_segmentation(self, filename):
         import io3d
@@ -770,6 +772,9 @@ def processData(args):
         label = str(crop[0])+"-"+str(crop[1])
     else:
         label = "0-end"
+
+    # pass label into addResultRecord with stats
+    hr.stats['general']['label'] = label
     if inputfile is None:
         hr.addResultsRecord(label=label)
     else:

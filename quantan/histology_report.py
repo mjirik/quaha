@@ -124,6 +124,7 @@ class HistologyReport:
             writer.writerow(data['Other']['Length histogram'][1])
             
     def addResultsRecord(self, label='_LABEL_', datapath="_GENERATED_DATA_", recordfilename='statsRecords.csv'):
+        # TODO remove label from function declaration
         logger.debug("Adding Results record to file: "+recordfilename+".*")
         cols = ['label', 'Vv', 'Sv', 'Lv', 'Tort', 'Nv', 'Vref', 'shape', 'voxelsize', 'datetime', 'path',
                 'Avg length mm',
@@ -139,7 +140,7 @@ class HistologyReport:
         data_g = self.data['general']
         data_o = self.stats['Report']['Other']
         newrow = [[
-            label,
+            data_r_m['label'], # label,
             data_r_m['Vessel volume fraction (Vv)'],
             data_r_m['Surface density (Sv)'],
             data_r_m['Length density (Lv)'],
@@ -183,6 +184,11 @@ class HistologyReport:
         |    Využijte třeba funkci np.hist()
         | Length histogram: obdoba předchozího pro délky
         """
+        # set default label
+        report_o = {'label':''}
+        report_o.update(self.data['general'])
+        self.data['general'] = report_o
+
         stats = {
             'Main': {
                 'Vessel volume fraction (Vv)': '-',
@@ -190,7 +196,8 @@ class HistologyReport:
                 'Length density (Lv)': '-',
                 'Tortuosity': '-',
                 'Nv': '-',
-                'Vref': '-'
+                'Vref': '-',
+                # 'label': ''
             },
             'Other': {
                 'Avg length mm': '-',
@@ -239,7 +246,8 @@ class HistologyReport:
             'general']['vessel_volume_fraction']
         stats['Main']['Surface density (Sv)'] = self.data[
             'general']['surface_density']
-        stats['Main']['Nv'] = self.data['general']['Nv'] 
+        stats['Main']['Nv'] = self.data['general']['Nv']
+        stats['Main']['label'] = self.data['general']['label']
 
         # save stats
         self.stats = {'Report': stats}
@@ -260,7 +268,10 @@ class HistologyReportDialog(QDialog):
             self.hr.data = self.ha.stats
         else:
             self.hr.data = stats
+        # add comment tag
+
         self.hr.generateStats()
+
 
         QDialog.__init__(self)
         self.initUI()
@@ -273,6 +284,9 @@ class HistologyReportDialog(QDialog):
 
     def setStatusBarText(self,text=""):
         logger.info(text)
+
+    def __on_changed_label(self, str_agg):
+        self.hr.stats['Report']['Main']['label'] = str(str_agg)
 
     def initUI(self):
         self.ui_gridLayout = QGridLayout()
@@ -334,8 +348,6 @@ class HistologyReportDialog(QDialog):
         btn_yaml.clicked.connect(self.writeDetailedYAML)
         btn_csv = QPushButton("Write details to CSV", self)
         btn_csv.clicked.connect(self.writeDetailedCSV)
-        btn_data3d = QPushButton("Save labeled skeleton", self)
-        btn_data3d.clicked.connect(self.btnWriteLabeledSkeleton)
         btn_rep_yaml = QPushButton("Write report to YAML", self)
         btn_rep_yaml.clicked.connect(self.writeReportYAML)
         # btn_rep_csv = QPushButton("Write report to CSV", self)
@@ -343,12 +355,27 @@ class HistologyReportDialog(QDialog):
         btn_add_row_csv= QPushButton("Write report row to CSV", self)
         btn_add_row_csv.clicked.connect(self.btnAddResultRecordCSV)
 
-        self.ui_gridLayout.addWidget(btn_yaml, rstart + 0, 0)
-        self.ui_gridLayout.addWidget(btn_csv, rstart + 1, 0)
-        # self.ui_gridLayout.addWidget(btn_rep_yaml, rstart + 0, 1)
+        btn_labeled_skeleton = QPushButton("Save labeled skeleton", self)
+        btn_labeled_skeleton.clicked.connect(self.btnWriteLabeledSkeleton)
+        btn_segmentation= QPushButton("Save segmentation", self)
+        btn_segmentation.clicked.connect(self.btnWriteSegmentation)
+
+
+        # label / comment
+        ui_comment_label = QLabel('Label/Comment')
+        ui_comment = QLineEdit()
+        ui_comment.setText(str(self.hr.stats['Report']['Main']['label']))
+        ui_comment.textChanged.connect(self.__on_changed_label)
+        self.ui_gridLayout.addWidget(ui_comment_label, rstart + 0, 0)
+        self.ui_gridLayout.addWidget(ui_comment, rstart + 1, 0)
+
+        self.ui_gridLayout.addWidget(btn_yaml, rstart + 0, 1)
+        self.ui_gridLayout.addWidget(btn_csv, rstart + 1, 1)
+        self.ui_gridLayout.addWidget(btn_rep_yaml, rstart + 0, 2)
+        self.ui_gridLayout.addWidget(btn_add_row_csv, rstart + 1, 2)
         # self.ui_gridLayout.addWidget(btn_rep_csv, rstart + 1, 1)
-        self.ui_gridLayout.addWidget(btn_data3d, rstart + 0, 1)
-        self.ui_gridLayout.addWidget(btn_add_row_csv, rstart + 1, 1)
+        self.ui_gridLayout.addWidget(btn_labeled_skeleton, rstart + 1, 3)
+        self.ui_gridLayout.addWidget(btn_segmentation, rstart + 0, 3)
         rstart +=1
 
         ### Stretcher
@@ -370,6 +397,20 @@ class HistologyReportDialog(QDialog):
         
         return filename
 
+    def btnWriteSegmentation(self):
+        logger.info("Writing segmentation")
+        filename = self.getSavePath("segmentation", "dcm")
+        if filename is None or filename == "":
+            logger.debug("File save canceled")
+            return
+
+        self.mainWindow.setStatusBarText('Saving segmentation image')
+        self.ha.save_segmentation(filename)
+        # awriter.save_skeleton(filename)
+
+        # self.ha.writeStatsToYAML(filename)
+        self.mainWindow.setStatusBarText('Ready')
+
     def btnWriteLabeledSkeleton(self):
         logger.info("Writing skeleton")
         filename = self.getSavePath("labeled_skeleton", "dcm")
@@ -378,17 +419,18 @@ class HistologyReportDialog(QDialog):
             return
         
         self.mainWindow.setStatusBarText('Saving labeled skeleton image')
-        io3d.datawriter.save_skeleton(filename)
+        self.ha.save_labeled_skeleton(filename)
+            # awriter.save_skeleton(filename)
 
         # self.ha.writeStatsToYAML(filename)
         self.mainWindow.setStatusBarText('Ready')
         
-        if not self.recordAdded:
-            self.addResultsRecordWithOthers()
+        # if not self.recordAdded:
+        #     self.addResultsRecordWithOthers()
 
     def btnAddResultRecordCSV(self):
         # TODO change filename
-        filename = self.getSavePath("statsRecords.", "csv")
+        filename = self.getSavePath("statsRecords", "csv")
         if filename is None or filename == "":
             logger.debug("File save cenceled")
             return

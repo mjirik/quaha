@@ -292,7 +292,7 @@ class HistologyAnalyserWindow(QMainWindow):
         newapp.exec_()
 
     def showHistologyReportDialog(self):
-        newapp = HistologyReportDialog(self, histologyAnalyser=self.ha )
+        newapp = HistologyReportDialog(self, histologyAnalyser=self.ha)
         self.embedWidget(newapp)
         self.fixWindow(height = 600)
         newapp.exec_()
@@ -477,15 +477,15 @@ class SegmResultDialog(QDialog):
         btn_save_segmentation.clicked.connect(self.mainWindow.save_segmentation)
         btn_save_skeleton = QPushButton("Save skeleton", self)
         btn_save_skeleton.clicked.connect(self.mainWindow.save_skeleton)
-        btn_save_labeled_skeleton = QPushButton("Save labeled skeleton", self)
-        btn_save_labeled_skeleton.clicked.connect(self.mainWindow.save_labeled_skeleton)
+        # btn_save_labeled_skeleton = QPushButton("Save labeled skeleton", self)
+        # btn_save_labeled_skeleton.clicked.connect(self.mainWindow.save_labeled_skeleton)
 
         self.ui_gridLayout.addWidget(QLabel('Node aggregation distance'), rstart + 0, 0, 1, 2)
         self.ui_gridLayout.addWidget(aggregate_textbox, rstart + 1, 0, 1, 2)
         self.ui_gridLayout.addWidget(QLabel(''), rstart + 2, 0)
         self.ui_gridLayout.addWidget(btn_save_segmentation, rstart + 3, 0)
         self.ui_gridLayout.addWidget(btn_save_skeleton, rstart + 4, 0)
-        self.ui_gridLayout.addWidget(btn_save_labeled_skeleton, rstart + 5, 0)
+        # self.ui_gridLayout.addWidget(btn_save_labeled_skeleton, rstart + 5, 0)
         self.ui_gridLayout.addWidget(btn_preview, rstart + 3, 1)
         self.ui_gridLayout.addWidget(btn_segm, rstart + 4, 1)
         self.ui_gridLayout.addWidget(btn_stats, rstart + 5, 1)
@@ -583,7 +583,12 @@ class StatsRunDialog(QDialog):
         worker.signals.update.connect(self.updateInfo)
         worker.signals.finished.connect(self.mainWindow.showHistologyReportDialog)
 
+        import PyQt4; PyQt4.QtCore.pyqtRemoveInputHook()
+        import ipdb; ipdb.set_trace()
+        logger.info('starting stats worker')
         self.pool.start(worker)
+        import PyQt4; PyQt4.QtCore.pyqtRemoveInputHook()
+        import ipdb; ipdb.set_trace()
 
     def updateInfo(self, part=0, whole=1, processPart="-"):
         # update progress bar
