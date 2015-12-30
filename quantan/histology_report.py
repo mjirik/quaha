@@ -32,9 +32,11 @@ import io3d
 
 class HistologyReport:
 
-    def __init__(self):
+    def __init__(self, hist_length_range=None, hist_radius_range=None):
         self.data = None
         self.stats = None
+        self.hist_length_range = hist_length_range 
+        self.hist_radius_range = hist_radius_range 
 
     def importFromYaml(self, filename):
         data = misc.obj_from_file(filename=filename, filetype='yaml')
@@ -166,8 +168,10 @@ class HistologyReport:
         append = os.path.isfile(filename)
         with open(filename, 'a') as f:
             if append:
+                logger.debug('append to file ' + filename)
                 df.to_csv(f, header=False)
             else:
+                logger.debug('write to file ' + filename)
                 df.to_csv(f)
 
     def generateStats(self, binNum=40):
@@ -263,7 +267,7 @@ class HistologyReportDialog(QDialog):
         self.ha = histologyAnalyser
         self.recordAdded = False
 
-        self.hr = HistologyReport()
+        self.hr = HistologyReport(ha.hr_hist_length_range, ha.hr_hist_radius_range)
         if stats is None:
             self.hr.data = self.ha.stats
         else:

@@ -41,7 +41,10 @@ class HistologyAnalyser:
 
     def __init__(self, data3d, metadata, threshold=-1, binaryClosing=-1,
                  binaryOpening=-1, nogui=True, qapp=None,
-                 aggregate_near_nodes_distance=0, ):
+                 aggregate_near_nodes_distance=0, 
+                 hist_length_range=None,
+                 hist_radius_range=None
+                 ):
         self.qapp=qapp
         self.data3d = data3d
         if 'voxelsize_mm' not in metadata.keys():
@@ -69,6 +72,8 @@ class HistologyAnalyser:
         self.aggregate_near_nodes_distance = aggregate_near_nodes_distance
         self.graph_label = 'microstructure'
         self.anotation = ''
+        self.hr_hist_length_range = hist_length_range 
+        self.hr_hist_radius_range = hist_radius_range 
 
     def save_skeleton(self, filename):
         import io3d
@@ -425,7 +430,7 @@ class HistologyAnalyser:
         self.stats['graph'][self.graph_label] = gr
 
     def exportVT2esofspy(self, filename='trace.txt'):
-        from skelet3d import vesseltree_export as vte
+        from imtools import vesseltree_export as vte
         logger.debug('esofspy export')
         self.prepareVesselTree()
 
@@ -644,9 +649,12 @@ def parser_init():  # pragma: no cover
     parser.add_argument(
         '-cr', '--crop',
         default=None,
-        type=int, metavar='N', nargs='+',
+        type=int, 
+        metavar=('z1', 'z2', 'y1', 'y2', 'x1', 'x2'),
+        nargs=6,
         help='Crops input data. In GUI mode, crops before GUI crop. Default is\
-None. Format: "z1 z2 y1 y2 x1 x2". -1 = None (start or end of axis).')
+None. Format: "z1 z2 y1 y2 x1 x2". -1 = None (start or end of axis).'
+)
 
     parser.add_argument(
         '--nogui',
@@ -670,6 +678,17 @@ None. Format: "z1 z2 y1 y2 x1 x2". -1 = None (start or end of axis).')
             default='statsRecords.csv',
             help='name of output vessel tree file')
     parser.add_argument(
+        '-hlr', '--hist-length-range', type=float, nargs=2,
+        default=None,
+        metavar=('min', 'max'),
+        help='Set min and max value for histogram')
+    
+    parser.add_argument(
+        '-hrr', '--hist-radius-range', type=float, nargs=2,
+        default=None,
+        metavar=('min', 'max'),
+        help='Set min and max value for histogram')
+    parser.add_argument(
         '--logfile',
         default="~/quantan.log",
         help='Specify logfile name')
@@ -679,8 +698,6 @@ None. Format: "z1 z2 y1 y2 x1 x2". -1 = None (start or end of axis).')
         '-d', '--debug',
         action='store_true',
         help='Debug mode')
-
-
 
     args = parser.parse_args()
 
@@ -693,7 +710,8 @@ None. Format: "z1 z2 y1 y2 x1 x2". -1 = None (start or end of axis).')
 
 def processData(args):
     """
-    Processing data without gui
+    Processing data without gui. There is a sister of this function in 
+    histology_analyser_gui module
     """
     inputfile=args.inputfile
     threshold=args.threshold
@@ -728,7 +746,10 @@ def processData(args):
     logger.debug('Init HistologyAnalyser object')
     ha = HistologyAnalyser(data3d, metadata, threshold, 
              binaryClosing=binaryClosing, binaryOpening=binaryOpening, 
-             nogui=True, aggregate_near_nodes_distance=args.aggregatenearnodes)
+             nogui=True, aggregate_near_nodes_distance=args.aggregatenearnodes,
+             hist_length_range=args.hist_length_range,
+             hist_radius_range=args.hist_radius_range
+             )
 
     # Remove Area = Load mask from file
     if mask_file is not None:
@@ -758,27 +779,27 @@ def processData(args):
 
     # ## Histology report
     logger.info("# ## ## Histology report")
-    hr = HistologyReport()
+    hr = HistologyReport(ha.hr_hist_length_range, ha.hr_hist_radius_range)
     hr.data = ha.stats
-    hr.generateStats()
-    # TODO Rename functions
-    hr.writeReportToCSV()
-    hr.addResultsRecord(recordfilename=output_report_csv_file)
-    hr.writeReportToYAML()
 
-    
     # Add results Record
     if crop is not None:
         label = str(crop[0])+"-"+str(crop[1])
     else:
         label = "0-end"
-
     # pass label into addResultRecord with stats
-    hr.stats['general']['label'] = label
+    hr.data['general']['label'] = label
+
+    hr.generateStats()
+    # TODO Rename functions
+    hr.writeReportToCSV()
+    hr.writeReportToYAML()
+
+    
     if inputfile is None:
-        hr.addResultsRecord(label=label)
+        hr.addResultsRecord(label=label, recordfilename=output_report_csv_file)
     else:
-        hr.addResultsRecord(label=label, datapath=inputfile)
+        hr.addResultsRecord(label=label, datapath=inputfile, recordfilename=output_report_csv_file)
 
     # ## End
     logger.info('Finished')

@@ -114,7 +114,10 @@ class HistologyAnalyserWindow(QMainWindow):
         self.ha = HA.HistologyAnalyser(
                 self.data3d, self.metadata,
                 nogui=False, qapp=self.qapp,
-                aggregate_near_nodes_distance=self.args.aggregatenearnodes)
+                aggregate_near_nodes_distance=self.args.aggregatenearnodes,
+                hist_length_range=self.args.hist_length_range,
+                hist_radius_range=self.args.hist_radius_range
+                )
 
         self.ha.set_anotation(inputfile)
         ### Remove Area (mask)
