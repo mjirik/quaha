@@ -199,7 +199,8 @@ class HistologyAnalyser:
             interactivity=not self.nogui,
             binaryClosingIterations=self.binaryClosing, # noqa 5,
             binaryOpeningIterations=self.binaryOpening, # 1 # noqa
-            qapp=self.qapp
+            qapp=self.qapp,
+            auto_method='otsu',
             )
         del(filteredData)
 
