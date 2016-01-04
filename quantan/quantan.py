@@ -719,8 +719,8 @@ def processData(args):
     mask_file=args.maskfile
     crop=args.crop
     voxelsize=args.voxelsize
-    binaryClosing=args.binaryopening
-    binaryOpening=args.binaryclosing
+    binaryClosing=args.binaryclosing
+    binaryOpening=args.binaryopening
     vtfile=args.vtfile
     vt2esofspy=args.vt2esofspy
     output_report_csv_file=args.output_report_csv_file

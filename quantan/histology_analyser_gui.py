@@ -116,7 +116,9 @@ class HistologyAnalyserWindow(QMainWindow):
                 nogui=False, qapp=self.qapp,
                 aggregate_near_nodes_distance=self.args.aggregatenearnodes,
                 hist_length_range=self.args.hist_length_range,
-                hist_radius_range=self.args.hist_radius_range
+                hist_radius_range=self.args.hist_radius_range,
+                binaryClosing=self.args.binaryclosing,
+                binaryOpening=self.args.binaryopening,
                 )
 
         self.ha.set_anotation(inputfile)
