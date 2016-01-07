@@ -267,7 +267,7 @@ class HistologyReportDialog(QDialog):
         self.ha = histologyAnalyser
         self.recordAdded = False
 
-        self.hr = HistologyReport(ha.hr_hist_length_range, ha.hr_hist_radius_range)
+        self.hr = HistologyReport(self.ha.hr_hist_length_range, self.ha.hr_hist_radius_range)
         if stats is None:
             self.hr.data = self.ha.stats
         else:
