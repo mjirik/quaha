@@ -588,12 +588,12 @@ class StatsRunDialog(QDialog):
         worker.signals.update.connect(self.updateInfo)
         worker.signals.finished.connect(self.mainWindow.showHistologyReportDialog)
 
-        import PyQt4; PyQt4.QtCore.pyqtRemoveInputHook()
-        import ipdb; ipdb.set_trace()
+        # import PyQt4; PyQt4.QtCore.pyqtRemoveInputHook()
+        # import ipdb; ipdb.set_trace()
         logger.info('starting stats worker')
         self.pool.start(worker)
-        import PyQt4; PyQt4.QtCore.pyqtRemoveInputHook()
-        import ipdb; ipdb.set_trace()
+        # import PyQt4; PyQt4.QtCore.pyqtRemoveInputHook()
+        # import ipdb; ipdb.set_trace()
 
     def updateInfo(self, part=0, whole=1, processPart="-"):
         # update progress bar
