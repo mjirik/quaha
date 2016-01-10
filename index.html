@@ -83,8 +83,43 @@ pip install .
 </li>
 </ul>
 
+<h2>
+<a id="mac-os" class="anchor" href="#mac-os" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mac OS</h2>
+
+<ul>
+<li>
+<p>Install prerequisites (brew packages, anaconda)</p>
+
+<pre><code>ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew install git cmake homebrew/science/insighttoolkit libpng
+curl "http://repo.continuum.io/miniconda/Miniconda-latest-MacOSX-x86_64.sh" -o "Miniconda-latest.sh"
+bash Miniconda-latest.sh -b
+echo "export PATH=$HOMEDIR/miniconda/bin:\$PATH" &gt;&gt; ~/.profile
+</code></pre>
+</li>
+<li>
+<p>Install <a href="https://github.com/mjirik/skelet3d">skelet3d package</a></p>
+
+<pre><code>git clone https://github.com/mjirik/skelet3d.git
+cd skelet3d
+mkdir build
+cd build 
+cmake ..
+make 
+sudo make install
+pip install .
+</code></pre>
+</li>
+<li>
+<p>Install Quantan</p>
+
+<pre><code>conda install -c mjirik -c SimpleITK quantan
+</code></pre>
+
 <h1>
 <a id="run" class="anchor" href="#run" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run</h1>
+</li>
+</ul>
 
 <p>Run QuantAn with:</p>
 
@@ -93,11 +128,11 @@ pip install .
 
 <p><img src="http://147.228.240.61/queetech/www/quantan01.png" alt="img"></p>
 
-<p><img src="http://147.228.240.61/queetech/www/quanta03.png" alt="img"></p>
+<p><img src="http://147.228.240.61/queetech/www/quantan03.png" alt="img"></p>
 
-<p><img src="http://147.228.240.61/queetech/www/quanta07.png" alt="img"></p>
+<p><img src="http://147.228.240.61/queetech/www/quantan08.png" alt="img"></p>
 
-<p><img src="http://147.228.240.61/queetech/www/quanta08.png" alt="img"></p>
+<p><img src="http://147.228.240.61/queetech/www/quantan10.png" alt="img"></p>
 
 <h1>
 <a id="sample-outputs" class="anchor" href="#sample-outputs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sample outputs</h1>
