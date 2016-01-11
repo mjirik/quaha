@@ -44,7 +44,7 @@ or
         conda install -c mjirik -c SimpleITK quantan
 
     
-## Mac OS
+## Mac OS   
 
 * Install prerequisites (brew packages, anaconda)
 
@@ -64,6 +64,7 @@ or
         cmake ..
         make 
         sudo make install
+        cd ..
         pip install .
 
 * Install Quantan
