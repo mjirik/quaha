@@ -63,18 +63,7 @@ var
 begin
 //result := not FileExists('c:\Miniconda2\Scripts\conda.exe');
 result := not (FileExists('c:\Miniconda2\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Miniconda2\Scripts\conda.exe') or FileExists('c:\Anaconda2\Scripts\conda.exe') or FileExists('c:\Miniconda\Scripts\conda.exe') or FileExists('c:\Anaconda\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Miniconda2\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Miniconda\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Anaconda2\Scripts\conda.exe') or FileExists('{%HOMEPATH}\Anaconda\Scripts\conda.exe'));
-//result := not Exec('conda', '', '', SW_SHOW, ewWaitUntilTerminated, ResultCode)
 
-//  Result := True;
-//  if Exec(ExpandConstant('conda'), '', '', 
-//    SW_SHOW
-//    , ewWaitUntilTerminated, ResultCode) then
-//  begin
-//    if ResultCode = 0 then    
-//      Result := False
-//    else
-//      MsgBox('The authorization failed!', mbCriticalError, MB_OK);
-//  end;
 end;
 
 procedure InitializeWizard();

@@ -44,8 +44,32 @@ or
         conda install -c mjirik -c SimpleITK quantan
 
     
-        
+## Mac OS   
 
+* Install prerequisites (brew packages, anaconda)
+
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        brew install git cmake homebrew/science/insighttoolkit libpng
+        curl "http://repo.continuum.io/miniconda/Miniconda-latest-MacOSX-x86_64.sh" -o "Miniconda-latest.sh"
+        bash Miniconda-latest.sh -b
+        echo "export PATH=$HOMEDIR/miniconda/bin:\$PATH" >> ~/.profile
+        
+        
+* Install [skelet3d package](https://github.com/mjirik/skelet3d)
+
+        git clone https://github.com/mjirik/skelet3d.git
+        cd skelet3d
+        mkdir build
+        cd build 
+        cmake ..
+        make 
+        sudo make install
+        cd ..
+        pip install .
+
+* Install Quantan
+
+        conda install -c mjirik -c SimpleITK quantan
 # Run 
 
 Run QuantAn with:
