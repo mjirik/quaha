@@ -27,7 +27,7 @@ class HistologyTest(unittest.TestCase):
 
 
         """
-        from imtools.gen_volume_tree import TreeGenerator
+        from imtools.tree_processing import TreeGenerator
         print "zacatek podezreleho testu"
         # import segmentation
         # import misc
