@@ -1,7 +1,6 @@
 # QuantAn
 Quantitative Analyser
 
-[Sample data](http://147.228.240.61/queetech/sample-data/biodur_sample.zip)
 
 # Install
 
@@ -89,6 +88,10 @@ Run QuantAn with:
 Download sample data into `sample_data` directory
 
         quantan --get-sample-data
+
+
+or download [Sample data](http://147.228.240.61/queetech/sample-data/biodur_sample.zip) manually
+
 
 # Sample outputs
 
