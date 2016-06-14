@@ -84,6 +84,11 @@ Run QuantAn with:
 
 ![img](http://147.228.240.61/queetech/www/quantan10.png)
 
+# Sample data
+
+Download sample data into `sample_data` directory
+
+        quantan --get-sample-data
 
 # Sample outputs
 

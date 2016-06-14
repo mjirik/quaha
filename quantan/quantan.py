@@ -700,6 +700,11 @@ None. Format: "z1 z2 y1 y2 x1 x2". -1 = None (start or end of axis).'
         action='store_true',
         help='Debug mode')
 
+    parser.add_argument(
+        '--get-sample-data',
+        action='store_true',
+        help='download sample data into "sample_data" directory')
+
     args = parser.parse_args()
 
     # replaces -1 in crop with None
@@ -829,6 +834,12 @@ def main():  # pragma: no cover
     logger.info('Input file -> %s', args.inputfile)
     logger.info('Data crop -> %s', str(args.crop))
     logger.info('Threshold -> %s', args.threshold)
+
+    if args.get_sample_data:
+        import imtools
+        import imtools.sample_data
+        imtools.sample_data.get_sample_data('biodur_sample', 'sample_data/')
+        return
 
     if args.nogui:
         logger.info('Running without GUI')
