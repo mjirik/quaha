@@ -21,7 +21,7 @@ build:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    - quantan = quantan:main
+    - quantan = quantan.quantan:main
     #
     # Would create an entry point called quantan that calls quantan.main()
 
