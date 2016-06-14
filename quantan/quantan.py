@@ -431,7 +431,7 @@ class HistologyAnalyser:
         self.stats['graph'][self.graph_label] = gr
 
     def exportVT2esofspy(self, filename='trace.txt'):
-        from imtools import vesseltree_export as vte
+        from skelet3d import vesseltree_export as vte
         logger.debug('esofspy export')
         self.prepareVesselTree()
 

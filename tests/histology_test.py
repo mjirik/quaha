@@ -1,6 +1,4 @@
-#! /usr/bin/python
-# -*- coding: utf-8 -*-
-
+#! /usr/bin/python # -*- coding: utf-8 -*-
 # import funkcí z jiného adresáře
 import os.path
 
@@ -27,7 +25,7 @@ class HistologyTest(unittest.TestCase):
 
 
         """
-        from imtools.tree_processing import TreeGenerator
+        from skelet3d.tree_processing import TreeGenerator
         print "zacatek podezreleho testu"
         # import segmentation
         # import misc
