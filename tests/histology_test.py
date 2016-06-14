@@ -25,7 +25,7 @@ class HistologyTest(unittest.TestCase):
 
 
         """
-        from skelet3d.tree_processing import TreeGenerator
+        from skelet3d.tree import TreeGenerator
         print "zacatek podezreleho testu"
         # import segmentation
         # import misc
