@@ -36,7 +36,7 @@ UsePreviousSetupType=False
 UsePreviousTasks=False
 UsePreviousLanguage=False
 ExtraDiskSpaceRequired=43
-SetupIconFile=quantan\icon\icon.ico
+SetupIconFile=quantan\icon\icon_setup.ico
 UsePreviousAppDir=False
 UsePreviousGroup=False
 
