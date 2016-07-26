@@ -53,6 +53,7 @@ Filename: "{tmp}\Miniconda-latest-Windows-x86_64.exe"; Parameters: "/AddToPath=1
 Filename: "{cmd}"; Parameters: "/C ""set PATH=%PATH%;%HOMEPATH%\Miniconda2;%HOMEPATH%\Miniconda2\Scripts;C:\Miniconda2\Scripts;C:\Miniconda2 & conda create -y -c SimpleITK -c mjirik -n quantan quantan"""; Flags: runasoriginaluser waituntilidle
 ; Filename: "{cmd}"; Parameters: "/C ""set PATH=%PATH%;%HOMEPATH%\Miniconda2;%HOMEPATH%\Miniconda2\Scripts;C:\Miniconda2\Scripts;C:\Miniconda2 & conda install -y -c SimpleITK -c mjirik quantan"""; Flags: runasoriginaluser waituntilidle
 ; Filename: "{cmd}"; Parameters: "/C ""pause"""
+Filename: "{tmp}\vc_redist.x64.exe"; Parameters: ""; Flags: waituntilterminated runasoriginaluser
 
 ;if IsCondaInstalled then
 
@@ -70,6 +71,7 @@ procedure InitializeWizard();
 begin
   if IsCondaInstalled then
     idpAddFileSize('https://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe', ExpandConstant('{tmp}\Miniconda-latest-Windows-x86_64.exe'), 22743040);
+  idpAddFileSize('http://147.228.240.61/queetech/install/vc_redist.x64.exe', ExpandConstant('{tmp}\vc_redist.x64.exe'), 14572000);
   idpDownloadAfter(wpReady);
 end;
 
