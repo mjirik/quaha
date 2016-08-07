@@ -57,6 +57,10 @@ Filename: "{tmp}\vc_redist.x64.exe"; Parameters: ""; Flags: waituntilterminated 
 
 ;if IsCondaInstalled then
 
+[Types]
+Name: "local"; Description: "Local User"
+Name: "all"; Description: "All Users"
+
 [Code]
 function IsCondaInstalled: boolean;
 var

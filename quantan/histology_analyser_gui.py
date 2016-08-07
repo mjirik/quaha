@@ -52,6 +52,7 @@ class HistologyAnalyserWindow(QMainWindow):
         QMainWindow.__init__(self)
 
         self.initUI()
+        check_skelet3d_lib()
         
         self.args = args
         self.showLoadDialog(inputfile = inputfile, voxelsize = voxelsize, crop = crop)
@@ -985,7 +986,15 @@ class LoadDialog(QDialog):
 
         self.mainWindow.setStatusBarText('Ready')
 
-
+def check_skelet3d_lib():
+    """
+    Check if skelet3d libs (.so, .dll) are installed. Install it.
+    :return:
+    """
+    import skelet3d
+    data = np.zeros([8, 9, 10], dtype=np.int8)
+    data[1:4, 3:7, 1:12] = 1
+    skelet = skelet3d.skelet3d(data)
 
 if __name__ == "__main__":
     HA.main()
