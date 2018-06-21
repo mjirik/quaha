@@ -14,3 +14,4 @@ skelet3d
 io3d
 pysegbase
 fibrous<0.1.0
+ruamel.yaml # required by fibrous
