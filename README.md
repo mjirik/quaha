@@ -1,6 +1,22 @@
 # QuantAn
 Quantitative Analyser
 
+Please See and cite paper:
+
+Jiřík, Miroslav, et al. "Stereological quantification of microvessels using semiautomated evaluation of X-ray microtomography of hepatic vascular corrosion casts." International journal of computer assisted radiology and surgery 11.10 (2016): 1803-1819.
+
+https://www.ncbi.nlm.nih.gov/pubmed/27008472#
+
+    article{jivrik2016stereological,
+        title={Stereological quantification of microvessels using semiautomated evaluation of X-ray microtomography of hepatic vascular corrosion casts},
+        author={Ji{\v{r}}{\'\i}k, Miroslav and Tonar, Zbyn{\v{e}}k and Kr{\'a}l{\'\i}{\v{c}}kov{\'a}, Anna and Eberlov{\'a}, Lada and M{\'\i}rka, Hynek and Kochov{\'a}, Petra and Gregor, Tom{\'a}{\v{s}} and Ho{\v{s}}ek, Petr and Svobodov{\'a}, Miroslava and Rohan, Eduard and others},
+        journal={International journal of computer assisted radiology and surgery},
+        volume={11},
+        number={10},
+        pages={1803--1819},
+        year={2016},
+        publisher={Springer}
+    }
 
 # Install
 
