@@ -47,6 +47,7 @@ requirements:
     - pandas
     - pywget
     - fibrous
+    - vtk!=7.1.0
 
   run:
     - python
@@ -64,6 +65,7 @@ requirements:
     - simpleitk
     - pywget
     - fibrous
+    - vtk!=7.1.0 # by fibrous 7.1.0 cuses problems on travis
 
 test:
   # Python imports
