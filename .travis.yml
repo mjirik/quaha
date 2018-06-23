@@ -58,6 +58,7 @@ install:
 
     # get sample data
     - python -m imtools.sample_data biodur_sample -o sample_data
+    - conda list
 
 
 # command to run tests
