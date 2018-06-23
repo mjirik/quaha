@@ -46,6 +46,7 @@ requirements:
     - pyqt 4.10.4
     - pandas
     - pywget
+    - fibrous
 
   run:
     - python
@@ -62,6 +63,7 @@ requirements:
     - pandas
     - simpleitk
     - pywget
+    - fibrous
 
 test:
   # Python imports

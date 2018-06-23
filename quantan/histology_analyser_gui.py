@@ -136,7 +136,7 @@ class HistologyAnalyserWindow(QMainWindow):
                     bad_mask = False
                 else:
                     logger.error('Mask file has wrong dimensions '+str(mask.shape))
-            except Exception, e:
+            except Exception as e:
                 logger.error('Error when processing mask file: '+str(e))
             if bad_mask == True: logger.debug('Falling back to GUI mask mode')
             
