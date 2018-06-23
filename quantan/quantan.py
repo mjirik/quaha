@@ -309,7 +309,7 @@ class HistologyAnalyser:
                         'connected_edges':[key],
                         'centroid': self.stats['graph'][self.graph_label][key]['node' + nodeIdLabel + '_ZYX_mm']
                         }
-        except Exception, e:
+        except Exception as e:
             logger.warning('get_Nv(): no nodeIdA')
         return nodes
 
@@ -329,13 +329,13 @@ class HistologyAnalyser:
             #     if nodeIdA in nodes: 
             #         nodes[nodeIdA] += [key] 
             #     else: nodes[nodeIdA] = [key]
-            # except Exception, e:
+            # except Exception as e:
             #     logger.warning('get_Nv(): no nodeIdA')
             # try:
             #     nodeIdB = edge['nodeIdB']
             #     if nodeIdB in nodes: nodes[nodeIdB] += [key] 
             #     else: nodes[nodeIdB] = [key]
-            # except Exception, e:
+            # except Exception as e:
             #     logger.warning('get_Nv(): no nodeIdB')
         logger.debug('Read ' + str(len(nodes)) + ' nodes')
         
@@ -457,7 +457,7 @@ class HistologyAnalyser:
 
             try:
                 _new_write_data({0: info}, writer, labels=info_labels)
-            except Exception, e:
+            except Exception as e:
                 logger.error('Error when saving line (info) to csv: '+str(e))
                 logger.error(traceback.format_exc())
 
@@ -489,9 +489,10 @@ def _new_write_data(data, writer, labels):
         for label in labels:
             try:
                 row.append(dataline[label])
-            except Exception, e:
-                traceback.print_exc()
-                logger.error('Error when saving line '+str(lineid)+' (data) to csv: '+str(e))
+            except KeyError as e:
+                # traceback.print_exc()
+                logger.warning('Not found key "' + str(label) + '" on line "'+str(lineid)+'" (data) to csv: '+str(e) +
+                               ". Using None.")
                 row.append(None)
         writer.writerow(row)
 
@@ -522,7 +523,7 @@ def _old_write_data(data, writer):
             writer.writerow(dataline['vectorA'])
             writer.writerow(dataline['vectorB'])
 
-        except Exception, e:
+        except Exception as e:
             logger.error('Error when saving line '+str(lineid)+' (data) to csv: '+str(e))
             logger.error(traceback.format_exc())
 
