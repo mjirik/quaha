@@ -5,7 +5,8 @@ numpy
 scipy
 SimpleITK
 pandas
-vtk!=7.1.0 # by fibrous 7.1.0 cuses problems on travis
+# vtk!=7.1.0 # by fibrous 7.1.0 cuses problems on travis
+vtk>=8
 pyqt=4.10.4=py27_0
 
 sed3

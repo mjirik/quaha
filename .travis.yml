@@ -33,9 +33,15 @@ before_install:
 install:
     - cmake --version
     - conda update --yes conda
+    # add to top of conda channel list
+    - conda config --add channels luispedro
+    - conda config --add channels SimpleITK
+    - conda config --add channels mjirik
+    - conda config --add channels conda-forge
     - conda install --yes pip nose coverage
     # Install dependencies
-    - conda install --yes -c SimpleITK -c luispedro -c mjirik -c conda-forge --file requirements_conda.txt
+#    - conda install --yes -c SimpleITK -c luispedro -c mjirik -c conda-forge --file requirements_conda.txt
+    - conda install --yes --file requirements_conda.txt
     - pip install -r requirements_pip.txt
 
     - git clone https://github.com/mjirik/skelet3d.git
